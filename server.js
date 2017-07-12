@@ -1,7 +1,7 @@
 let express = require("express");
 let path = require("path");
 let bodyParser = require("body-parser");
-let hbs = require("express-handlebars");
+// let hbs = require("express-handlebars");
 
 // var index = require("./routes/index");
 let taskRoutes = require("./routes/tasksRoutes");
@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.set('views',path.join(__dirname,'views'));
-app.set('view engine','hbs');
-app.engine('hbs',hbs({extname:'hbs'}));
+app.set('view engine','pug');
+// app.engine('hbs',hbs({extname:'hbs'}));
 
 app.set('port', (process.env.PORT || 5000));
 
