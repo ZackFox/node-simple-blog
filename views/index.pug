@@ -2,9 +2,18 @@ doctype html
 html
     head
         title home
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/css/styles.css')
+        //script(type='text/javascript', src='/js/jquery-1.11.2.min.js')
     body
-        include header.pug
-        
-        p Welcome to my super lame site.
-        
+        //----header
+        include header.pug        
+        div.container
+            p.test Welcome to my super site.
+                ul
+                    for val, i in ['zero', 'one', 'two']
+                        li= i +" : " + val                 
+                p #{msg}        
+        //----footer
         include footer.pug

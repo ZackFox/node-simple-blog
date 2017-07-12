@@ -2,11 +2,11 @@ var express = require("express");
 var router = express.Router();
 
 var mongo = require('mongojs');
-var connection = mongo("mongodb://mdbadmin:mdbpass@ds155132.mlab.com:55132/mongobase",['tasks']);
+var db = mongo("mongodb://mdbadmin:mdbpass@ds155132.mlab.com:55132/mongobase",['tasks']);
 
-router.get('/task',function(req,res,next){
-    connection.tasks.find(function(err,tasks){
-        if(err) res.send(err);
+router.get('/',function(req,res,next){
+    db.tasks.find(function(error,tasks){
+        if(error) res.send(error);
         res.json(tasks);
     });
 });
