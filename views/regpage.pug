@@ -1,0 +1,16 @@
+//----header
+include header.pug 
+
+//------content       
+div.container
+    h3 reg page
+    .row
+        .col-md-6.col-md-offset-3
+            form(action="/reg", method="post")
+                input(type="text",name="name",placeholder="nickname")
+                input(type="email",name="email",placeholder="email")
+                input(type="text",name="login",placeholder="логин")
+                input(type="password",name="password",placeholder="пароль")
+                input(type="submit")                 
+//----footer
+include footer.pug

@@ -12,9 +12,15 @@ app.use(express.static(__dirname+"/resources"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.get("/", (req,res) => res.render('index',{msg:"hello world!"}));
 
+app.get("/", (req,res) => res.render('index',{msg:"hello world!"}))
+
+let regRouter = require("./routes/regRouter");
 let taskRoutes = require("./routes/tasksRoutes");
+let adminRouter = require("./routes/adminRouter");
+
+app.use(regRouter);
 app.use("/task", taskRoutes);
+app.use("/admin", adminRouter);
 
 app.listen(app.get('port'), () => console.log("server is started"));

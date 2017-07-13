@@ -1,5 +1,25 @@
-header
-    div.container
-        div.logo
-            a(href="/") МойБложек
+doctype html
+html
+    head
+        title home
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/font-awesome.min.css')
+        link(rel='stylesheet', href='/css/styles.css')
+        //script(type='text/javascript', src='/js/jquery-1.11.2.min.js')
+    body
+        header
+            div.container
+                div.logo
+                    a(href="/") МойБложек
+                
+                nav.navbar
+                    ul.nav.navbar-nav
+                        li 
+                            a(href="/") Посты
+                                
+                div.login
+                    a(href="reg") Регистрация
+                    a(href="login") Войти
+                
+        
         
