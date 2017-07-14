@@ -1,12 +1,12 @@
 let express = require("express");
 let path = require("path");
 let bodyParser = require("body-parser");
+let session = require("express-session");
 let mongoose = require('mongoose');
 
-let regRouter = require("./routes/regRouter");
-let taskRoutes = require("./routes/tasksRoutes");
+let indexRouter = require("./routes/indexRouter");
 let adminRouter = require("./routes/adminRouter");
-let loginRouter = require("./routes/loginRouter");
+let taskRoutes = require("./routes/tasksRoutes");
 
 let app = express();
 
@@ -24,12 +24,11 @@ app.use(express.static(__dirname+"/resources"));
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine','pug');
 
+app.use(session({secret:"spiderman", resave:false, saveUninitialized: false}))
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-app.get("/", (req,res) => res.render('index',{msg:"hello world!"}))
-app.use("/login", loginRouter);
-app.use("/reg", regRouter);
+app.use("/", indexRouter)
 app.use("/task", taskRoutes);
 app.use("/admin", adminRouter);
 

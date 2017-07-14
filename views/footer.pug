@@ -5,10 +5,11 @@ footer
 div.modal-wrapper
     div.modal-login
         p.message
-        form(action="/login", method="post").loginform
+        form.loginform
+            input(type="hidden" id="csrf" value=token)
             input(type="text" id="login" name="login" placeholder="Логин" )
             input(type="password" id="password" name="password" placeholder="Пароль")
-            input(type="submit")
+            input(type="submit")    
             a(href="reg") Зарегистрироваться
             a(href="/").modal-close Закрыть
 script(type='text/javascript', src='/js/jquery-1.11.2.min.js')
