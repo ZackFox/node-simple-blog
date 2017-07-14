@@ -1,13 +1,12 @@
 var express = require("express");
 var router = express.Router();
 
-var mongo = require('mongojs');
-var db = mongo("mongodb://mdbadmin:mdbpass@ds155132.mlab.com:55132/mongobase",['tasks']);
+let User = require("../model/user");
 
 router.get('/',function(req,res,next){
-    db.tasks.find(function(error,tasks){
+    User.find({}).exec(function(error,users){
         if(error) res.send(error);
-        res.json(tasks);
+        res.json(users);
     });
 });
 
