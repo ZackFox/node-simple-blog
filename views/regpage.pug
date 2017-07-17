@@ -5,11 +5,11 @@ div.container
     h3 Регистрация
     .row
         .col-md-6.col-md-offset-3
+            p #{message}
             form(action="/reg", method="post")
-                input(type="text",name="name",placeholder="nickname")
-                input(type="email",name="email",placeholder="email")
-                input(type="text",name="login",placeholder="логин")
-                input(type="password",name="password",placeholder="пароль")
+                input(type="hidden" id="csrf" name="_csrf" value=token)
+                input(type="text" name="login" placeholder="логин")
+                input(type="password" name="password" placeholder="пароль")
                 input(type="submit")                 
 //----footer
 include footer.pug

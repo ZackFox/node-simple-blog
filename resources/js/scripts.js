@@ -1,9 +1,11 @@
 $(document).ready(function () {
+    // ---- login popup toggle
     $(".login-popup, .modal-close").click(function(e){
         e.preventDefault();
         $(".modal-wrapper").toggleClass("show");
     });
-
+    
+    // ----- login request
     $(".loginform").submit(function(e){
         e.preventDefault();
         var login = $("#login").val();

@@ -1,29 +1,30 @@
 var express = require("express");
-var router = express.Router();
+let passport = require('passport');
 var csrf = require("csurf");
+let User = require("../model/user");
+var router = express.Router();
 
 let csrfProtect = csrf();
 router.use(csrfProtect);
-// var mongo = require('mongojs');
-// var db = mongo("mongodb://mdbadmin:mdbpass@ds155132.mlab.com:55132/mongobase",['tasks']);
 
 router.get("/",function(req,res){
     res.render("index",{token: req.csrfToken()});        
 });
 
+//----  check user credentials
 router.post("/login", function(req,res){
     console.log(req.body);
     res.status(200).send(req.body);
-});
+}); 
 
-router.route("/reg")
-    .get(function(req,res){
-        res.render("regpage");
-    })
-    .post(function(req,res){
-        console.log(req.body);
-        res.redirect("/");
-});
+//---- registration 
+router.get("/reg",function(req,res){
+    let message = req.flash("error");
+    res.render("regpage",{token: req.csrfToken(), message: message});
+})
 
+router.post('/reg', passport.authenticate('local',
+    {failureRedirect: "/reg", successRedirect: "/task", failureFlash: true}
+));
 
 module.exports = router;

@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-
 let User = require("../model/user");
 
 router.get('/',function(req,res,next){
