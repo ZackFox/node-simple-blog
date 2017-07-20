@@ -15,13 +15,9 @@ $(document).ready(function () {
         if(login === "" || password === "") $(".message").text("Заполните поля");
         else{
             $.ajax({
-                type: "POST",
                 url:"/login",
-                data: {
-                    login:login,
-                    password:password,
-                    _csrf:csrf
-                },
+                type: "POST",
+                data: {_csrf:csrf,login:login,password:password},
                 success: function(res){
                     //Изменить кнопку вход на выход
                     //
@@ -32,5 +28,74 @@ $(document).ready(function () {
                 }
             });
         }        
-    });  
+    });
+    
+    $(".signupform").validate({
+        rules:{
+            nickname:{
+                required:true,                
+            },
+            email:{
+                required:true,
+                email:true
+            },
+            login:{
+                required:true,
+                remote:{ type: "POST", url:"/validate/nickname", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), login: function(){return $("#login").val();}},                
+                }
+            },
+            password:{
+                required:true,
+                minlength:3,
+                remote:{ type: "POST", url:"/validate/email", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), password: function(){return $("#password").val();}},                
+                }                
+            }
+
+        },
+        messages:{
+            nickname:{
+                required:"Ник не должен быть пустым"
+            },
+            email:{
+                required:"Адрес почты не должен быть пустым",
+                email:"Некорректный адрес"
+            },
+            login:{
+                required:"Логин не должен быть пустым"
+            },
+            password:{
+                required:"Пароль не должен быть пустым",
+                minlength: jQuery.validator.format("Ваш пароль пароль короче {0} символов")
+            }
+            
+        }
+        
+        // e.preventDefault();
+        // var csrf = $("#csrf").val();
+        // var nickname = $("#nickname").val();
+        // var email = $("#email").val();    
+        
+        // var password = $("#password").val();        
+        // else{   
+        //     $.ajax({
+        //         type: "POST",
+        //         url:"/login",
+        //         data: {
+        //             login:login,
+        //             password:password,
+        //             _csrf:csrf
+        //         },
+        //         success: function(res){
+        //             //Изменить кнопку вход на выход
+        //             //
+        //             $(".modal-wrapper").toggleClass("show");   
+        //         },
+        //         error: function(error){ 
+        //             $(".message").text("Пользователь не найден");
+        //         }
+        //     });
+        // }        
+    });
 }); 

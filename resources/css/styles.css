@@ -34,6 +34,14 @@ header{
     float: right;
 }
 
+label.error{
+    color:red;
+    font-weight: 100;
+    position: relative;
+    left: 5px;
+    top: 5px;
+}
+
 footer{
     position: fixed;
     bottom: 0;
