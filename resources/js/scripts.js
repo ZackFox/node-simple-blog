@@ -33,26 +33,29 @@ $(document).ready(function () {
     $(".signupform").validate({
         rules:{
             nickname:{
-                required:true,                
+                required:true,
+                remote:{ type: "POST", url:"/validate/nickname", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), nickname: function(){
+                        return $("#nickname").val();}
+                    },                
+                }                                
             },
             email:{
                 required:true,
-                email:true
+                email:true,
+                remote:{ type: "POST", url:"/validate/email", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), email: function(){
+                        return $("#email").val();}
+                    },                
+                }          
             },
             login:{
-                required:true,
-                remote:{ type: "POST", url:"/validate/nickname", dataType: "text",
-                    data: {_csrf: $("#csrf").val(), login: function(){return $("#login").val();}},                
-                }
+                required:true
             },
             password:{
                 required:true,
-                minlength:3,
-                remote:{ type: "POST", url:"/validate/email", dataType: "text",
-                    data: {_csrf: $("#csrf").val(), password: function(){return $("#password").val();}},                
-                }                
+                minlength:6      
             }
-
         },
         messages:{
             nickname:{
@@ -68,8 +71,7 @@ $(document).ready(function () {
             password:{
                 required:"Пароль не должен быть пустым",
                 minlength: jQuery.validator.format("Ваш пароль пароль короче {0} символов")
-            }
-            
+            }            
         }
         
         // e.preventDefault();

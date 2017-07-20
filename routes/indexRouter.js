@@ -30,7 +30,7 @@ router.post("/signup", function(req, res, next) {
 });
 
 router.post('/validate/nickname', function(req, res, next) {
-    User.findOne({'login': req.body.login} , function(err, user){    
+    User.findOne({'nickname': req.body.nickname} , function(err, user){    
         if(err) return res.status(500).next(err);            
         if(user) return res.send("Это имя уже занято");
         res.send("true");
@@ -38,7 +38,7 @@ router.post('/validate/nickname', function(req, res, next) {
 });
 
 router.post('/validate/email', function(req, res, next) {
-    User.findOne({'password': req.body.password} , function(err, user){    
+    User.findOne({'email': req.body.email} , function(err, user){    
         if(err) return res.status(500).next(err);            
         if(user) return res.send("Этот email уже используется");
         res.send("true");
