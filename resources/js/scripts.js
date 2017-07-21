@@ -15,16 +15,14 @@ $(document).ready(function () {
         if(login === "" || password === "") $(".message").text("Заполните поля");
         else{
             $.ajax({
-                url:"/login",
+                url:"/signin",
                 type: "POST",
                 data: {_csrf:csrf,login:login,password:password},
                 success: function(res){
-                    //Изменить кнопку вход на выход
-                    //
                     $(".modal-wrapper").toggleClass("show");   
-                },
-                error: function(error){ 
-                    $(".message").text("Пользователь не найден");
+                    //Изменить кнопку вход на выход
+                    // $(".message").text("Пользователь не найден");
+                    //
                 }
             });
         }        
@@ -34,19 +32,19 @@ $(document).ready(function () {
         rules:{
             nickname:{
                 required:true,
-                remote:{ type: "POST", url:"/validate/nickname", dataType: "text",
-                    data: {_csrf: $("#csrf").val(), nickname: function(){
-                        return $("#nickname").val();}
-                    },                
+                remote:{ type: "POST", url:"/validate", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), valid:"nickname",
+                            nickname: function(){ return $("#nickname").val();}
+                    }               
                 }                                
             },
             email:{
                 required:true,
                 email:true,
-                remote:{ type: "POST", url:"/validate/email", dataType: "text",
-                    data: {_csrf: $("#csrf").val(), email: function(){
-                        return $("#email").val();}
-                    },                
+                remote:{ type: "POST", url:"/validate", dataType: "text",
+                    data: {_csrf: $("#csrf").val(), valid:"email",
+                            email: function(){ return $("#email").val();}
+                    }                
                 }          
             },
             login:{
@@ -100,4 +98,4 @@ $(document).ready(function () {
         //     });
         // }        
     });
-}); 
+});     

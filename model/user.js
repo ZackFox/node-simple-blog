@@ -7,6 +7,8 @@ let UserSchema = new Schema({
     email:String,
     login: String,
     password: String
+    // hash:String,
+    // salt:String
 });
 
 UserSchema.methods.encryptPassword = function(password){

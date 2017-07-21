@@ -8,17 +8,16 @@ let passport     = require('./config/passport');
 let flash        = require('connect-flash');
 let validator    = require("express-validator");
 
+let config       = require("./config/conf");
 let indexRouter  = require("./routes/indexRouter");
 let adminRouter  = require("./routes/adminRouter");
 let taskRoutes   = require("./routes/tasksRoutes");
 
 let app = express();
 
-const uri = "mongodb://mdbadmin:mdbpass@ds155132.mlab.com:55132/mongobase";
-
 //use models for mongodb database
 mongoose.Promise = global.Promise;  
-mongoose.connect(uri,{useMongoClient: true, poolSize: 4});
+mongoose.connect(config.mongoUri,{useMongoClient: true, poolSize: 4});
 mongoose.connection.on('error', error => console.log("error !"+ error));
 mongoose.connection.on('connected',() => console.log("connection success!"));
 
@@ -38,8 +37,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 // app.use(flash());
 
-app.use("/", indexRouter)
 app.use("/task", taskRoutes);
 app.use("/admin", adminRouter);
+app.use("/", indexRouter)
 
 app.listen(app.get('port'), () => console.log("server is started"));

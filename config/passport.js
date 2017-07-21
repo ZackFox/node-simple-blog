@@ -12,29 +12,18 @@ passport.deserializeUser(function(id, done){
     });
 });
 
-passport.use("signup", new LocalStrategy({
+passport.use("signin", new LocalStrategy({
         usernameField: 'login',
         passwordField: 'password', 
         passReqToCallback:true
     }, 
     function(req, login, password, done){        
-        User.findOne({$or:[{'login':login}, {'password':password}]}, function(err, user){    
-            if(err) done(err);
-            
-            if(user){
-                let message = {login:"Такой логин уже есть", password:"Такой пароль уже есть"};                
-                
-                if(user.login === login && user.password !== password ){
-                    message.password = "";
-                }
-                else if (user.login !== login && user.password === password ) {
-                    message.login = "";
-                }
-
-                return done(null,false, message);
+        User.findOne({$and:[{'login':login}, {'password':password}]}, function(err, user){    
+            if(err) return done(err);            
+            if(!user){                
+                return done(null,false,{message:"данные не верны"}); 
             }
-            
-            return done(null,newUser,{message:"свободен"}); 
+            return done(null,user);
         });  
     }
 ));
