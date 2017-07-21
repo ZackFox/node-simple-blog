@@ -7,7 +7,20 @@ var router = express.Router();
 let csrfProtect = csrf();
 router.use(csrfProtect);
 
-//----- registration page and sign Up
+router.get("/",function(req, res, next){
+    res.render("index",{token: req.csrfToken()});        
+}); 
+
+
+router.post("/signin", passport.authenticate("signin", { successRedirect:'admin'}));
+
+
+router.get("/signout",function(req,res, next){
+    req.logOut();
+    res.redirect("/");             
+});
+
+
 router.route("/signup")
     .get(function(req,res){
         res.render("regpage", { token: req.csrfToken()});
@@ -25,16 +38,8 @@ router.route("/signup")
     });  
 });
 
-//------------ sign In
-router.post("/signin", passport.authenticate("signin", { successRedirect:'admin'}));
 
-//----------- sign Out
-router.get("/signout",function(req,res, next){
-    req.logOut();
-    res.redirect("/");             
-});
-
-//----- credential validate 
+//----- validation email and nickname
 router.post('/validate', function(req, res, next) {
     if(req.body.valid === "nickname"){
         User.findOne({'nickname': req.body.nickname} , function(err, user){    
@@ -52,24 +57,5 @@ router.post('/validate', function(req, res, next) {
     }
     else res.sendStatus(404);
 });
-
-router.get("/",function(req, res, next){
-    res.render("index",{token: req.csrfToken()});        
-}); 
-
-
-
-
-
-// req.checkBody("nickname").notEmpty();
-//     req.checkBody("email").notEmpty();
-//     req.checkBody("login").notEmpty();
-//     req.checkBody("password").notEmpty().isLength({min:3});                
-    
-//     req.getValidationResult().then(function(result){
-//         if(!result.isEmpty()){ 
-//            return res.status(401).send("not valid credentials");
-//         }
-//     });
 
 module.exports = router;

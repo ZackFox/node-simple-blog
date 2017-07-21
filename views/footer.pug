@@ -2,16 +2,23 @@ footer
     p footer here 
     a(href="signup") Регистрация
 
-div.modal-wrapper
-    div.modal-login
-        p.message
-        form.loginform
-            input(type="hidden" id="csrf" value=token)
-            input(type="text" id="login" name="login" placeholder="Логин" )
-            input(type="password" id="password" name="password" placeholder="Пароль")
-            input(type="submit")    
-            a(href="signup") Зарегистрироваться
+div.modal-wrapper.show    
+    div.modal-login.container
+        div.col-md-12
             a(href="/").modal-close Закрыть
+            form.form-horizontal(action="/signin" method="post")
+                input(type="hidden" id="csrf" name="_csrf"  value=token)
+                p.message   
+                div.form-group
+                    label Введите ваш логин:
+                    input.form-control(type="text" id="login" name="login" placeholder="Логин" )
+                div.form-group
+                    label Введите ваш пароль            
+                    input.form-control(type="password" id="password" name="password" placeholder="Пароль")        
+                div.form-group
+                    input.btn.btn-succes(type="submit" value="Войти") 
+                    a(href="/") Не могу вспомнить пароль
+                
 script(type='text/javascript', src='/js/jquery-1.11.2.min.js')
 script(type='text/javascript', src='/js/jquery.validate.min.js')
 script(type='text/javascript', src='/js/scripts.js')
