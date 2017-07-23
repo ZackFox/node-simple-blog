@@ -16,7 +16,7 @@ let usersRouter  = require("./routes/users");
 let app = express();
 
 //use models for mongodb database
-// mongoose.set("debug",true);
+mongoose.set("debug",true);
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUri,{useMongoClient: true, poolSize: 4});
 mongoose.connection.on('connected',() => console.log("connection success!"));
@@ -53,24 +53,24 @@ app.use("/userslist", usersRouter);
 app.use("/profile", userRouter);
 app.use("/", indexRouter)
 
-app.use(function(req, res, next) {
-    let error = new Error('Not Found')
-    error.status = 404;
-    next(error);
-});
+// app.use(function(req, res, next) {
+//     let error = new Error('Not Found')
+//     error.status = 404;
+//     next(error);
+// });
 
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.next(err);
-  });
-}
+// if (app.get('env') === 'development') {
+//   app.use(function(err, req, res, next) {
+//     res.next(err);
+//   });
+// }
 
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: err
-    });
-});
+// app.use(function(err, req, res, next) {
+//     res.status(err.status || 500);
+//     res.render('error', {
+//         message: err.message,
+//         error: err
+//     });
+// });
 
 app.listen(app.get('port'), () => console.log("server is started"));
