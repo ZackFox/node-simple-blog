@@ -5,10 +5,15 @@ var csrf = require("csurf");
 let User = require("../model/userModel");
 
 router.get("/:nickname", function(req, res, next){
-    User.findOne({nickname: req.params.nickname}, function(err, user){
+    User.findOne({nickname: req.params.nickname}, function(err, userProfile){
         if(err) return next(err);
-        if(!user) return next();        
-        res.render("profile", user); 
+        if(!userProfile) return next();
+
+        else {
+            if(req.session.user && req.session.user.nickname == req.params.nickname )
+                res.locals.isOwn = true;
+            res.render("profile", userProfile); 
+        }
     });
 });
 

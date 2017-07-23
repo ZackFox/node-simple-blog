@@ -13,7 +13,7 @@ router.get("/",function(req, res, next){
 
 router.post("/signin", function(req,res,next){
     if(req.body.login === "" && req.body.password === "")
-        return res.json({mesagge:"empty fiels"});
+        return res.json({message:"empty fiels"});
     
     passport.authenticate("signin", function(err, user, info) {
         if (err) return next(err);

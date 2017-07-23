@@ -3,6 +3,10 @@ include top.pug
 include header.pug 
 //------content       
 div.container         
-    h3 profile #{nickname}           
+    div.well 
+        h3 #{nickname}    
+        if isOwn
+            p i'm your page
+
 //----footers
 include footer.pug
