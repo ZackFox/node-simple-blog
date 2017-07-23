@@ -2,12 +2,13 @@ header
     div.container
         div.logo
             a(href="/") МойБложек
-        
-        nav.navbar
-            ul.nav.navbar-nav
-                li 
-                    a(href="/") Посты                                
-        div.login                    
-            a(href="/").login-popup Войти
-            br
-            a(href="/signout") Выйти
+        if login                    
+            nav.navbar
+                ul.nav.navbar-nav
+                    li 
+                        a(href="/profile/posts") Посты                                  
+        div.login
+            if login
+                a.btn.btn-warning(href="/signout") Выйти
+            else
+                a.btn.btn-success(href="/").login-popup Войти

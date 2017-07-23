@@ -1,14 +1,14 @@
-let mongoose = require('mongoose');
-let bcrypt = require("bcrypt-nodejs");
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require("bcrypt-nodejs");
+const Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
-    nickname: String,
-    email:String,
+const UserSchema = new Schema({
+    nickname: {type: String, unique: true },
+    email: {type: String, unique: true },
     login: String,
-    password: String
-    // hash:String,
-    // salt:String
+    password: String,
+    role: {type: Number, default: 0 },
+    avatar: {type: String, default: "avatar.jpg"}
 });
 
 UserSchema.methods.encryptPassword = function(password){

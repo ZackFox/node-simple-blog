@@ -1,7 +1,7 @@
 var express = require("express");
 let passport = require('passport');
 var csrf = require("csurf");
-let User = require("../model/user");
+let User = require("../model/userModel");
 var router = express.Router();
 
 let csrfProtect = csrf();
@@ -11,15 +11,27 @@ router.get("/",function(req, res, next){
     res.render("index",{token: req.csrfToken()});        
 }); 
 
-
-router.post("/signin", passport.authenticate("signin", { successRedirect:'admin'}));
-
+router.post("/signin", function(req,res,next){
+    if(req.body.login === "" && req.body.password === "")
+        return res.json({mesagge:"empty fiels"});
+    
+    passport.authenticate("signin", function(err, user, info) {
+        if (err) return next(err);
+        if (!user) return res.status(401).json(info);
+        
+        req.logIn(user, function(err) {
+            if (err) return next(err); 
+            req.session.user = user
+            return res.redirect('/');
+        });
+  })(req, res, next);
+});
 
 router.get("/signout",function(req,res, next){
     req.logOut();
-    res.redirect("/");             
+    req.session.user = null;
+    res.redirect("/");
 });
-
 
 router.route("/signup")
     .get(function(req,res){
@@ -37,7 +49,6 @@ router.route("/signup")
             res.redirect("/");
     });  
 });
-
 
 //----- validation email and nickname
 router.post('/validate', function(req, res, next) {
