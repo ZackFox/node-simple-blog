@@ -1,13 +1,26 @@
-const express = require("express");
 const passport = require('passport');
 const User = require("../model/userModel");
-const router = express.Router();
-    
-router.get("/",function(req, res, next){
-    res.render("index",{token: req.csrfToken()});        
-}); 
 
-router.post("/signin", function(req,res,next){
+const authController = {};
+
+authController.getSignUpPage = (req,res) => {
+    res.render("regpage", { token: req.csrfToken()});
+};
+
+authController.signUp = (req, res, next) => {
+        let newUser = new User();
+        newUser.email = req.body.email;
+        newUser.nickname = req.body.nickname;
+        newUser.login = req.body.login;
+        newUser.password = req.body.password;
+
+        newUser.save(function (err,result){
+            if(err) next(err);
+            res.redirect("/");
+    });  
+};
+
+authController.signIn = (req,res,next) => {
     if(req.body.login === "" && req.body.password === "")
         return res.json({message:"empty fiels"});
     
@@ -21,33 +34,17 @@ router.post("/signin", function(req,res,next){
             return res.redirect('/');
         });
   })(req, res, next);
-});
+}
 
-router.get("/signout",function(req,res, next){
+
+authController.signOut = (req, res, next) => {
     req.logOut();
     req.session.user = null;
     res.redirect("/");
-});
+};
 
-router.route("/signup")
-    .get(function(req,res){
-        res.render("regpage", { token: req.csrfToken()});
-    })
-    .post(function(req, res, next) {
-        let newUser = new User();
-        newUser.email = req.body.email;
-        newUser.nickname = req.body.nickname;
-        newUser.login = req.body.login;
-        newUser.password = req.body.password;
 
-        newUser.save(function (err,result){
-            if(err) next(err);
-            res.redirect("/");
-    });  
-});
-
-//----- validation email and nickname
-router.post('/validate', function(req, res, next) {
+authController.checkCredentials = (req, res, next) => {
     if(req.body.valid === "nickname"){
         User.findOne({'nickname': req.body.nickname} , function(err, user){    
             if(err) return res.status(500).next(err);            
@@ -63,6 +60,7 @@ router.post('/validate', function(req, res, next) {
         })        
     }
     else res.sendStatus(404);
-});
+}
 
-module.exports = router;
+
+module.exports = authController;
