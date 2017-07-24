@@ -1,12 +1,8 @@
-var express = require("express");
-let passport = require('passport');
-var csrf = require("csurf");
-let User = require("../model/userModel");
-var router = express.Router();
-
-let csrfProtect = csrf();
-router.use(csrfProtect);
-
+const express = require("express");
+const passport = require('passport');
+const User = require("../model/userModel");
+const router = express.Router();
+    
 router.get("/",function(req, res, next){
     res.render("index",{token: req.csrfToken()});        
 }); 

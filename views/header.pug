@@ -2,11 +2,16 @@ header
     div.container
         div.logo
             a(href="/") МойБложек
+        
         if session.user                    
             nav.navbar
                 ul.nav.navbar-nav
                     li 
-                        a(href="/profile/posts") Посты                                  
+                        a(href="/profile/"+session.user.nickname+"/post") Написать пост         
+
+
+        if session.user  
+
         div.login
             if session.user
                 a.btn.btn-warning(href="/signout") Выйти

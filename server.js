@@ -7,6 +7,7 @@ let mongoose     = require('mongoose');
 let mongoStore   = require('connect-mongo')(session);
 let passport     = require('./config/passport');
 let validator    = require("express-validator");
+const csrf = require("csurf");
 
 let config       = require("./config/conf");
 let indexRouter  = require("./routes/index");
@@ -42,6 +43,7 @@ app.use(session({
 app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(csrf());
 
 app.use(function(req,res,next){
     res.locals.login = req.isAuthenticated();
@@ -49,9 +51,16 @@ app.use(function(req,res,next){
     next();
 });
 
+
 app.use("/userslist", usersRouter);
 app.use("/profile", userRouter);
 app.use("/", indexRouter)
+
+// if (app.get('env') === 'development') {
+//   app.use(function(err, req, res, next) {
+//     res.next(err);
+//   });
+// }
 
 // app.use(function(req, res, next) {
 //     let error = new Error('Not Found')
@@ -59,11 +68,6 @@ app.use("/", indexRouter)
 //     next(error);
 // });
 
-// if (app.get('env') === 'development') {
-//   app.use(function(err, req, res, next) {
-//     res.next(err);
-//   });
-// }
 
 // app.use(function(err, req, res, next) {
 //     res.status(err.status || 500);

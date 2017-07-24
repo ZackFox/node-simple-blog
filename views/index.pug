@@ -3,8 +3,12 @@ include top.pug
 include header.pug 
 //------content       
 div.container 
-    if login        
-        h3 hi        
-    
+    if session.user       
+        h3 привет #{session.user.nickname}        
+    p
+        a(href="profile/boby") страница boby
+    p
+        a(href="profile/Zackfox") страница zack
+
 //----footers
 include footer.pug
