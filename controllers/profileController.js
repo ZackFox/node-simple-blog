@@ -1,27 +1,24 @@
 const passport = require('passport');
 const User = require("../model/userModel");
+const Post = require("../model/postModel");
 
 const profileController = {};
 
 profileController.getProfilePage = (req, res, next) =>{
-    User.findOne({nickname: req.params.nickname}, function(err, userProfile){
-        if(err) return next(err);
-        if(!userProfile) return next();
-
-        else {
-            if(req.session.user && req.session.user.nickname == req.params.nickname )
-                res.locals.isOwn = true;
-            res.render("profile", { user: userProfile, token: req.csrfToken()}); 
-        }
-    });
+    User.findOne({nickname: req.params.nickname})
+        .then((user) => {
+            if(!user) return next();
+            else {
+                if(req.session.user && req.session.user.nickname == req.params.nickname )
+                    res.locals.isOwn = true;
+                res.render("profile", { user: user, token: req.csrfToken()}); 
+            }
+        }).catch((err) => next(err));
 };
 
-
-profileController.getPostPage = (req, res, next)=> {
-    const nickname = req.params.nickname; 
-    res.send( "write post "+ nickname);
+profileController.getPostPage = (req, res, next) => { 
+    res.render("createpost",{token:req.csrfToken()});
 };
-
 
 module.exports = profileController;    
 

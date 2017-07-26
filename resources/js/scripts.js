@@ -8,26 +8,27 @@ $(document).ready(function () {
     // ----- login request
     $(".loginform").submit(function(e){
         e.preventDefault();
-        var login = $("#login").val();
+        var nickname = $("#nickname").val();
         var password = $("#password").val();
         var csrf = $("#csrf").val();    
 
-        if(login === "" || password === "") $(".message").text("Заполните поля");
+        if(nickname === "" || password === "") 
+            $(".message").text("Заполните поля");
         else{
             $.ajax({
                 url:"/signin",
                 type: "POST",
-                data: {_csrf:csrf,login:login,password:password},
+                data: {_csrf:csrf, nickname:nickname,password:password},
                 success: function(res){
-                    $(".modal-wrapper").toggleClass("show");   
-                    //Изменить кнопку вход на выход
-                    // $(".message").text("Пользователь не найден");
-                    //
-                }
+                    if(res.success) window.location.reload();                
+                    $(".message").text(res.message);      
+                } 
             });
         }        
     });
     
+
+///-----------------------------------
     $(".signupform").validate({
         rules:{
             nickname:{
@@ -46,10 +47,7 @@ $(document).ready(function () {
                             email: function(){ return $("#email").val();}
                     }                
                 }          
-            },
-            login:{
-                required:true
-            },
+            },    
             password:{
                 required:true,
                 minlength:6      
@@ -72,30 +70,5 @@ $(document).ready(function () {
             }            
         }
         
-        // e.preventDefault();
-        // var csrf = $("#csrf").val();
-        // var nickname = $("#nickname").val();
-        // var email = $("#email").val();    
-        
-        // var password = $("#password").val();        
-        // else{   
-        //     $.ajax({
-        //         type: "POST",
-        //         url:"/login",
-        //         data: {
-        //             login:login,
-        //             password:password,
-        //             _csrf:csrf
-        //         },
-        //         success: function(res){
-        //             //Изменить кнопку вход на выход
-        //             //
-        //             $(".modal-wrapper").toggleClass("show");   
-        //         },
-        //         error: function(error){ 
-        //             $(".message").text("Пользователь не найден");
-        //         }
-        //     });
-        // }        
     });
 });     

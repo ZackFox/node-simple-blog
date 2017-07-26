@@ -1,17 +1,17 @@
 footer
     p footer here 
-    a(href="signup") Регистрация
+    a(href="/signup") Регистрация
 
 div.modal-wrapper  
     div.modal-login.container
         div.col-md-12
             a(href="/").modal-close Закрыть
-            form.form-horizontal(action="/signin" method="post")
+            form.form-horizontal.loginform(action="/signin" method="post")
                 input(type="hidden" id="csrf" name="_csrf"  value=token)
                 p.message   
                 div.form-group
-                    label Введите ваш логин:
-                    input.form-control(type="text" id="login" name="login" placeholder="Логин" )
+                    label Введите имя пользователя:
+                    input.form-control(type="text" id="nickname" name="nickname" placeholder="Логин" )
                 div.form-group
                     label Введите ваш пароль            
                     input.form-control(type="password" id="password" name="password" placeholder="Пароль")        

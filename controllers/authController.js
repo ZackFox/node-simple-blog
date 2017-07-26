@@ -11,27 +11,24 @@ authController.signUp = (req, res, next) => {
         let newUser = new User();
         newUser.email = req.body.email;
         newUser.nickname = req.body.nickname;
-        newUser.login = req.body.login;
         newUser.password = req.body.password;
 
-        newUser.save(function (err,result){
-            if(err) next(err);
-            res.redirect("/");
-    });  
+        newUser.save()
+            .then(() => res.redirect("/"))
+            .catch( err => next(err));  
 };
 
 authController.signIn = (req,res,next) => {
-    if(req.body.login === "" && req.body.password === "")
+    if(req.body.nickname === "" && req.body.password === "")
         return res.json({message:"empty fiels"});
     
-    passport.authenticate("signin", function(err, user, info) {
+    passport.authenticate("signin", (err, user, info) => {
         if (err) return next(err);
-        if (!user) return res.status(401).json(info);
-        
-        req.logIn(user, function(err) {
+        if (!user) return res.json(info);        
+        req.logIn(user, (err) => {
             if (err) return next(err); 
             req.session.user = user
-            return res.redirect('/');
+            res.json(info);
         });
   })(req, res, next);
 }
@@ -61,6 +58,5 @@ authController.checkCredentials = (req, res, next) => {
     }
     else res.sendStatus(404);
 }
-
 
 module.exports = authController;

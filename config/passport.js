@@ -13,17 +13,20 @@ passport.deserializeUser(function(id, done){
 });
 
 passport.use("signin", new LocalStrategy({
-        usernameField: 'login',
+        usernameField: 'nickname',
         passwordField: 'password', 
         passReqToCallback:true
     }, 
-    function(req, login, password, done){        
-        User.findOne({$and:[{'login':login}, {'password':password}]}, function(err, user){    
-            if(err) return done(err);            
-            if(!user){                
-                return done(null,false,{message:"данные не верны"}); 
+    function(req, nickname, password, done){        
+        User.findOne({'nickname':nickname}, function(err, user){    
+            if(err) return done(err);                        
+            if(user){                
+                if(user.password !== password ) {
+                    return done(null, false, {success: false, message:"Пароль не совпадает"});
+                }                
+                return done(null, user, {success: true, message:""});
             }
-            return done(null,user);
+            return done(null,false,{success: false, message:"Такого пользователя не существует"});
         });  
     }
 ));
