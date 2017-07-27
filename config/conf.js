@@ -7,4 +7,5 @@ config.languages = [
     {name: 'ru', alias: 'Русский', default: true}
 ];
 
+
 module.exports = config;

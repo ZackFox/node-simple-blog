@@ -4,10 +4,11 @@ header
             a(href="/") МойБложек
         
         if session.user                    
-            nav.navbar
-                ul.nav.navbar-nav
-                    li 
-                        a(href="/profile/"+session.user.nickname+"/post") Написать пост         
+            a.write-post.btn(href="/profile/"+session.user.nickname+"/post") Написать пост         
+        
+            //- nav.navbar
+            //-     ul.nav.navbar-nav
+            //-         li 
 
 
         div.login

@@ -5,6 +5,7 @@ const ObjectId = Schema.Types.ObjectId;
 const PostSchema = new Schema({
     author: {type:String},
     title: {type: String, required:true},
+    preview: String,
     text:String,
     createTime: {type: Date, default: Date.now()},
     updateTime: {type: Date, default: Date.now()}

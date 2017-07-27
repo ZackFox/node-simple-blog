@@ -4,6 +4,7 @@
 }
 html{
     height: 100%;
+    
 }
 
 body{
@@ -16,18 +17,27 @@ h1,h2,h3 {
     margin:0;
 }
 
+.content-wrapper{ 
+    min-height: 100%;
+}
+
 header{
     width: 100%;
+    padding: 10px 0;
     background: #6f619a;
 }
 
 .logo a{
     float: left;
-    padding: 10px;
     font-size: 20px;
     color: #f2f2f2
 }
 
+.write-post{
+    color:#fff;
+    background: #2196f3;
+    margin-left: 15px;
+}
 
 ul {
     list-style: none;
@@ -39,7 +49,6 @@ ul {
 }
 
 .login{
-    padding: 15px;
     float: right;
 }
 
@@ -91,8 +100,6 @@ label.error{
 }
 
 footer{
-    position: fixed;
-    bottom: 0;
     width: 100%;
     padding: 10px;
     background: #d43f3a;

@@ -2,7 +2,7 @@
 include top.pug
 include header.pug 
 //------content       
-div.container 
+div.container.content-wrapper 
     //- if session.user       
     //-     h3 привет #{session.user.nickname}        
     
@@ -19,7 +19,7 @@ div.container
                                 span.createTime= post.createTime
                         div.row
                             div.col-md-12.post-text
-                                p= post.text
+                                p= post.preview
         div.col-md-3
             p Для входа как boby (nickname:boby/password:boby)
             p Для входа как zack (nickname:Zackfox/password:123456)

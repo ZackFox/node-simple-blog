@@ -13,10 +13,8 @@ postController.sendPost = (req, res, next) => {
     newPost.author = req.body.author;
     newPost.title = req.body.title;
     newPost.text = req.body.text;
+    newPost.preview = req.body.text.substring(0,400).concat(" ...");
     
-    // split('\n');
-
-
     newPost.save()
         .then((post) => res.redirect("/"))
         .catch(err => {next(err)});
@@ -24,7 +22,8 @@ postController.sendPost = (req, res, next) => {
 
 postController.getPostById = (req, res, next) => {
     Post.findOne({_id: req.params.id})
-        .then(post => {            
+        .then(post => {    
+            // let splitted = post.text.split('\n');
             res.render("postPage",{post:post})            
         })
         .catch(err => next(err));
