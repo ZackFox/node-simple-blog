@@ -18,7 +18,7 @@ h1,h2,h3 {
 
 header{
     width: 100%;
-    background: #ccc;       
+    background: #6f619a;
 }
 
 .logo a{
@@ -72,6 +72,22 @@ label.error{
   font-weight:bold;
   font-size:4em;  
   line-height:1em;
+}
+
+.badge{
+    background: #4caf50;
+}
+
+.heading {
+    margin-bottom: 5px;
+}
+
+.createTime{
+    margin-left: 10px;
+}
+
+.post-text{
+    padding-top: 10px;
 }
 
 footer{

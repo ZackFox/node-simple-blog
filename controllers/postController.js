@@ -14,6 +14,9 @@ postController.sendPost = (req, res, next) => {
     newPost.title = req.body.title;
     newPost.text = req.body.text;
     
+    // split('\n');
+
+
     newPost.save()
         .then((post) => res.redirect("/"))
         .catch(err => {next(err)});
@@ -21,9 +24,8 @@ postController.sendPost = (req, res, next) => {
 
 postController.getPostById = (req, res, next) => {
     Post.findOne({_id: req.params.id})
-        .then(post => {
-            console.log(post); 
-            res.send(post.text)
+        .then(post => {            
+            res.render("postPage",{post:post})            
         })
         .catch(err => next(err));
 };

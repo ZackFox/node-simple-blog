@@ -1,6 +1,5 @@
 footer
-    p footer here 
-    a(href="/signup") Регистрация
+    p footer here     
 
 div.modal-wrapper  
     div.modal-login.container
@@ -17,7 +16,9 @@ div.modal-wrapper
                     input.form-control(type="password" id="password" name="password" placeholder="Пароль")        
                 div.form-group
                     input.btn.btn-succes(type="submit" value="Войти") 
-                    a(href="/") Не могу вспомнить пароль
+                    //- a(href="/") Не могу вспомнить пароль
+                div.form-group
+                    a(href="/signup") Регистрация                    
                 
 script(type='text/javascript', src='/js/jquery-1.11.2.min.js')
 script(type='text/javascript', src='/js/jquery.validate.min.js')

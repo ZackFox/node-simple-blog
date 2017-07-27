@@ -11,27 +11,24 @@ div.container
                         img.img-polaroid(src="/img/blank_avatar.jpg" width="100")         
                     
                     div.col-md-4
-                        h2 #{user.nickname} 
+                        h2= user.nickname 
                         
                         if isOwn 
                             p i'm your page
                         
                         ul.unstyled 
                             li
-                                p 916-241-3613
-                                i.fa.fa-phone 
-                            li
-                                p jonniespratley@me.com
+                                p= user.email
                                 i.fa.fa-envelope 
                         
                     div.col-md-6
                         ul.inline.stats
                             li
                                 p Постов :
-                                    span 275
+                                    span 0
                             li
                                 p Подписчиков :
-                                    span 354
+                                    span 0
 
     
 //----footers

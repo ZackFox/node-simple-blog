@@ -3,15 +3,26 @@ include top.pug
 include header.pug 
 //------content       
 div.container 
-    if session.user       
-        h3 привет #{session.user.nickname}        
-
-    ul   
-        each p in posts
-            li
-                a(href="/profile/"+ p.author)= "Автор: " + p.author
-                span= "================="
-                a(href="/profile/"+ p.author +"/post/"+p._id)= p.title
+    //- if session.user       
+    //-     h3 привет #{session.user.nickname}        
+    
+    div.row
+        div.col-md-9
+            ul   
+                each post in posts
+                    li.well
+                        div.row
+                            div.col-md-12
+                                h2.heading
+                                    a(href="/profile/"+ post.author +"/post/"+post._id)= post.title                            
+                                a.badge.btn-success(href="/profile/"+ post.author)= post.author
+                                span.createTime= post.createTime
+                        div.row
+                            div.col-md-12.post-text
+                                p= post.text
+        div.col-md-3
+            p Для входа как boby (nickname:boby/password:boby)
+            p Для входа как zack (nickname:Zackfox/password:123456)
 //----footers
 include footer.pug
 
