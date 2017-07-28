@@ -7,17 +7,17 @@ const PostSchema = new Schema({
     title: {type: String, required:true},
     preview: String,
     text:String,
+    comments: [{type:ObjectId, ref:"Comment"}],
     createTime: {type: Date, default: Date.now()},
     updateTime: {type: Date, default: Date.now()}
 });
 
-// PostSchema.pre('save', function (next) {
-// 	if (this.isNew) {
-// 		this.createTime = this.updateDate = Date.now();
-// 	} else {
-// 		this.meta, updateTime = Date.now()
-// 	}    
+// PostSchema.pre('findOne', (next) => {
+// 	this.populate({
+//         path: "comments",
+//         select: "author createtime -_id"
+//     });
 // 	next();
-// })
+// });
 
 module.exports = mongoose.model("Post", PostSchema);

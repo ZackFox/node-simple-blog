@@ -19,13 +19,14 @@ h1,h2,h3 {
 
 .content-wrapper{ 
     min-height: 100%;
+    padding-top: 20px;
 }
 
 header{
     width: 100%;
     padding: 10px 0;
     background: #6f619a;
-}
+}   
 
 .logo a{
     float: left;
@@ -54,6 +55,17 @@ ul {
 
 input.error{
     border:1px solid red;
+}
+
+
+.sign-up-block{
+    background:#f2f2f2;
+    border: 1px solid #ccc;
+}
+
+.signupform{
+    display:block;
+    padding: 15px;
 }
 
 .form-control:focus{    
@@ -97,6 +109,32 @@ label.error{
 
 .post-text{
     padding-top: 10px;
+}
+
+.post-block{
+    min-height:350px;
+}
+
+.com-block{
+    padding-top: 10px;
+    border-top :1px solid #c1c1c1;
+}
+
+.comment-item{
+    display: block;
+    min-height: 130px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.text-area{
+    width: 100%;
+    resize: none;
+    padding: 7px;
+    min-height: 60px;
 }
 
 footer{

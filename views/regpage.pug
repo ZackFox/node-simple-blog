@@ -1,9 +1,8 @@
 include top.pug
 //------content       
-div.container
-    
+div.container.content-wrapper
     .row
-        .col-md-6.col-md-offset-3
+        .col-md-6.col-md-offset-3.sign-up-block
             form.signupform.form-horizontal(action="/signup", method="post")
                 input(type="hidden" id="csrf" name="_csrf" value=token)
                 div.row

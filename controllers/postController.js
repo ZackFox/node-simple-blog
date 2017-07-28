@@ -22,11 +22,11 @@ postController.sendPost = (req, res, next) => {
 
 postController.getPostById = (req, res, next) => {
     Post.findOne({_id: req.params.id})
-        .then(post => {    
-            // let splitted = post.text.split('\n');
-            res.render("postPage",{post:post})            
-        })
-        .catch(err => next(err));
+        .populate({ path: 'comments', select: 'author createTime text -_id'})
+        .then(post => {         
+            console.log(post);
+            res.render("postPage",{token:req.csrfToken(), post:post})            
+        }).catch(err => next(err));
 };
 
 postController.getPostsByUser = (req, res, next) => { 

@@ -5,10 +5,15 @@ const mainController  = {};
 
 mainController.welcome = (req, res, next) => {
     Post.find({})
-        .then(posts => {
-            let postsList = [];
-            if(posts) postsList = posts;
-            res.render("index", {token: req.csrfToken(), posts:postsList});
+        .then(posts => {            
+            posts.map((p) => {
+                let date = new Date(p.createTime)
+                console.log(date.toDateString())
+                p.createTime = date; 
+
+                console.log(p.createTime)   
+            });
+            res.render("index", {token: req.csrfToken(), posts:posts});
         })
         .catch(err => next(err));
 }

@@ -7,6 +7,7 @@ const mainController    = require("../controllers/mainController");
 const authController    = require("../controllers/authController");
 const profileController = require("../controllers/profileController");
 const postController    = require("../controllers/postController");
+const commentController = require("../controllers/commentController");
 
 router.get("/", mainController.welcome);
 
@@ -19,10 +20,11 @@ router.post("/validate", authController.checkCredentials);
 router.get("/profile/:nickname", profileController.getProfilePage);
 router.get("/profile/:nickname/post", isLoggedIn, profileController.getPostPage); 
 
-// router.get("/posts", postController.getAllPosts);
 router.get("/profile/:nickname/posts", postController.getPostsByUser);
 router.post("/profile/:nickname/post", isLoggedIn, postController.sendPost);
 router.get("/profile/:nickname/post/:id", postController.getPostById);  
+
+router.post("/profile/:nickname/post/:id", commentController.sendComment);
 
 router.get('/users', function(req,res,next){
     User.find({}).exec(function(err,users){

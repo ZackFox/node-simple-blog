@@ -3,7 +3,7 @@ include top.pug
 include header.pug 
 //------content       
 div.container.content-wrapper     
-    div.row
+    div.row.post-block
         div.col-md-2
             img.img-polaroid(src="/img/blank_avatar.jpg" width="100")
         div.col-md-8
@@ -12,6 +12,28 @@ div.container.content-wrapper
             div.row
                 p= post.text
 
+    div.row
+        div.col-md-10.col-md-offset-1.com-blockp 
+            p Комментариев: #{post.comments.length}            
+            if session.user
+                div.comment-item            
+                        p новый коментарий
+                        form.comment-form(action="/profile/"+post.author+"/post/"+post._id method="post")            
+                            input(type="hidden" id="csrf" name="_csrf"  value=token)
+                            input(type="hidden"  name="author" value=session.user.nickname)        
+                            textarea.text-area(name="comment")
+                            input(type="submit" value="Добавить комментарий")
+            else
+                p Авторизируйтесь, чтобы оставить комментарий
+                                
+            ul
+                each com in post.comments
+                    li.comment-item
+                        p= com.author
+                        p= com.createTime
+                        p.com-text= com.text
+                        a(href="/") Ответить
+          
 //----footers
 include footer.pug
 
