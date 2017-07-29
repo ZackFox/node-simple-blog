@@ -9,7 +9,6 @@ profileController.getProfilePage = (req, res, next) =>{
         .then((user) => {
             if(!user) return next();
             else {
-                console.log(user);
                 if(req.session.user && req.session.user.nickname == req.params.nickname )
                   res.locals.isOwn = true;
                 res.render("profile", { user: user, token: req.csrfToken()}); 

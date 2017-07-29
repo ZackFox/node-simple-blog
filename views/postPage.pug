@@ -18,7 +18,7 @@ div.container.content-wrapper
             if session.user
                 div.comment-item            
                         p новый коментарий
-                        form.comment-form(action="/profile/"+post.author+"/post/"+post._id method="post")            
+                        form.comment-form(action="/profile/"+post.author+"/post/"+post._id+"/comment" method="post")            
                             input(type="hidden" id="csrf" name="_csrf"  value=token)
                             input(type="hidden"  name="author" value=session.user.nickname)        
                             textarea.text-area(name="comment")
