@@ -1,3 +1,4 @@
+const User = require("../model/userModel");
 const Post = require("../model/postModel");
 
 const postController = {};
@@ -16,15 +17,15 @@ postController.sendPost = (req, res, next) => {
     newPost.preview = req.body.text.substring(0,400).concat(" ...");
     
     newPost.save()
-        .then((post) => res.redirect("/"))
+        .then(() => User.findOneAndUpdate({nickname: req.body.author},{$push: {"posts" : newPost._id}})
+        .then(() => res.redirect("/")))
         .catch(err => {next(err)});
 };
 
 postController.getPostById = (req, res, next) => {
     Post.findOne({_id: req.params.id})
-        .populate({ path: 'comments', select: 'author createTime text -_id'})
+        .populate({ path: 'comments', select: 'author createTime text _id'})
         .then(post => {         
-            console.log(post);
             res.render("postPage",{token:req.csrfToken(), post:post})            
         }).catch(err => next(err));
 };

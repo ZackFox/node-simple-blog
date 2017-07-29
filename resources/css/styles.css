@@ -122,12 +122,24 @@ label.error{
 
 .comment-item{
     display: block;
-    min-height: 130px;
+    min-height: 108x;
     padding: 10px 15px;
     margin-bottom: 10px;
     background: #f5f5f5;
     border-radius: 10px;
     border: 1px solid #ccc;
+}
+
+.com-head{
+    margin-bottom: 10px;    
+}
+
+.com-update{
+    float: right;
+}
+
+.com-delete{
+    float: right;
 }
 
 .text-area{

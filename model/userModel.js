@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt-nodejs");
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema({
     nickname: {type: String, unique: true },
     email: {type: String, unique: true },
     password: String,
     role: {type: Number, default: 0 },
+    posts: [{type:ObjectId, ref:"Post"}],
     avatar: {type: String, default: "avatar.jpg"}
 });
 

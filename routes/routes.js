@@ -24,14 +24,16 @@ router.get("/profile/:nickname/posts", postController.getPostsByUser);
 router.post("/profile/:nickname/post", isLoggedIn, postController.sendPost);
 router.get("/profile/:nickname/post/:id", postController.getPostById);  
 
-router.post("/profile/:nickname/post/:id", commentController.sendComment);
+router.post("/profile/:nickname/post/:id/comment", commentController.sendComment);
+// router.put("/profile/:nickname/post/:id/comment/:cId", commentController.updateComment);
+router.get("/profile/:nickname/post/:id/comment/:cId", commentController.deleteComment);
 
-router.get('/users', function(req,res,next){
-    User.find({}).exec(function(err,users){
-        if(err) next(err);
-        res.json(users);
-    });
-});
+// router.get('/users', function(req,res,next){
+//     User.find({}).exec(function(err,users){
+//         if(err) next(err);
+//         res.json(users);
+//     });
+// });
 
 module.exports = router;
 

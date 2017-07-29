@@ -29,10 +29,17 @@ div.container.content-wrapper
             ul
                 each com in post.comments
                     li.comment-item
-                        p= com.author
-                        p= com.createTime
-                        p.com-text= com.text
-                        a(href="/") Ответить
+                        div.com-head
+                            a.com-author(href="/profile/"+com.author)= com.author
+                            span.com-date= com.createTime
+                            if session.user && com.author === session.user.nickname
+                                a.com-update(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Изменить
+
+                        div.com-body
+                            p.com-text= com.text
+                            a(href="/") Ответить
+                            if session.user && com.author === session.user.nickname
+                                a.com-delete(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Удалить
           
 //----footers
 include footer.pug
