@@ -3,32 +3,32 @@ include top.pug
 include header.pug 
 //------content       
 div.container.content-wrapper          
-    div.row
-        div.span12
-            div.well.well-small.clearfix            
-                div.row-fluid
-                    div.col-md-2
-                        img.img-polaroid(src="/img/blank_avatar.jpg" width="100")         
-                    
-                    div.col-md-4
-                        h2= user.nickname 
-                        
-                        if isOwn 
-                            p i'm your page
-                        
-                        ul.unstyled 
-                            li
-                                p= user.email
-                                i.fa.fa-envelope 
-                        
-                    div.col-md-6
-                        ul.inline.stats
-                            li
-                                p Постов :
-                                    span= user.posts.length
-                            li
-                                p Подписчиков :
-                                    span 0
+  div.row
+    div.col-md-12
+      div.well.well-small.clearfix            
+        div.row-fluid
+          div.col-md-2
+            img.img-polaroid(src="/img/blank_avatar.jpg" width="100")         
+        
+          div.col-md-4
+            h2= user.nickname 
+              
+            if isOwn 
+              p i'm your page
+            
+            ul.unstyled 
+              li
+                p= user.email
+                i.fa.fa-envelope 
+            
+          div.col-md-6
+            ul.inline.stats
+              li
+                p Постов :
+                  span= user.posts.length
+              li
+                p Подписчиков :
+                  span 0
 
     
 //----footers

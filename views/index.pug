@@ -1,27 +1,26 @@
 //----header
 include top.pug
 include header.pug 
-//------content       
-div.container.content-wrapper 
-    //- if session.user       
-    //-     h3 привет #{session.user.nickname}        
-    
-    div.row
-        div.col-md-9
-            ul   
-                each post in posts
-                    li.well
-                        div.row
-                            div.col-md-12
-                                h2.heading
-                                    a(href="/profile/"+ post.author +"/post/"+post._id)= post.title                            
-                                a.badge.btn-success(href="/profile/"+ post.author)= post.author
-                                span.createTime= post.createTime
-                        div.row
-                            div.col-md-12.post-text
-                                p= post.preview
-        div.col-md-3
-            p Для входа как boby (nickname:boby/password:boby)
+//------content
+div.container.content-wrapper
+  div.row
+    div.col-md-9
+      ul
+        each post in posts
+          li.well
+            div.row
+              div.col-md-12
+                h2.heading
+                  a(href="/profile/"+ post.author +"/post/"+post._id)= post.title                            
+                a.badge.btn-success(href="/profile/"+ post.author)= post.author
+                span.createTime= post.createTime
+            div.row
+              div.col-md-12.post-text
+                p= post.preview
+    div.col-md-3
+      span Для входа как boby
+      p (nickname: boby/password: boby)
+      a(href="https://github.com/ZackFox/nodeTodoTasks") Репозиторий проекта на GitHub :
 //----footers
 include footer.pug
 

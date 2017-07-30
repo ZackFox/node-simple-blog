@@ -1,19 +1,17 @@
 header
-    div.container
-        div.logo
-            a(href="/") МойБложек
-        
-        if session.user                    
-            a.write-post.btn(href="/profile/"+session.user.nickname+"/post") Написать пост         
-        
-            //- nav.navbar
-            //-     ul.nav.navbar-nav
-            //-         li 
+  div.container
+    div.logo
+      a(href="/") МойБложек
+    
+    if session.user                    
+      a.write-post.btn(href="/profile/"+session.user.nickname+"/post") Написать пост         
+  
+      //- nav.navbar
+      //-     ul.nav.navbar-nav
+      //-         li 
 
-
-        div.login
-            if session.user
-                a.btn.btn-warning(href="/signout") Выйти
-            else
-                a.btn.btn-success(href="/").login-popup Войти
-            
+    div.login
+      if session.user
+        a.btn.btn-warning(href="/signout") Выйти
+      else
+        a.btn.btn-success(href="/").login-popup Войти
