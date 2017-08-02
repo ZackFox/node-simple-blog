@@ -5,10 +5,13 @@ include header.pug
 div.container.content-wrapper     
   div.row.post-block
     div.col-md-2
-      img.img-polaroid(src="/img/blank_avatar.jpg" width="100")
+      a(href="/profile/"+ post.author)
+        img.img-polaroid(src="/img/blank_avatar.jpg" width="100")
+        span  #{post.author}
+      
     div.col-md-8
       div.row
-        h3= post.title
+        h3.post-title= post.title
       div.row
         p= post.text
 
@@ -25,14 +28,13 @@ div.container.content-wrapper
             input(type="submit" value="Добавить комментарий")
       else
         p Авторизируйтесь, чтобы оставить комментарий
-                          
+
       ul
         each com in post.comments
           li.comment-item
             div.com-head
               a.com-author(href="/profile/"+com.author)= com.author
-              span.com-date= com.createTime
-              
+              span.com-date= moment(com.createTime).format('DD MMMM YYYY')
               if session.user && com.author === session.user.nickname
                 a.com-update(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Изменить
 

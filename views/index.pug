@@ -11,12 +11,13 @@ div.container.content-wrapper
             div.row
               div.col-md-12
                 h2.heading
-                  a(href="/profile/"+ post.author +"/post/"+post._id)= post.title                            
-                a.badge.btn-success(href="/profile/"+ post.author)= post.author
-                span.createTime= post.createTime
+                  a(href="/profile/"+ post.author +"/post/"+post._id)= post.title
+                  a.pull-right.badge.btn-success(href="/profile/"+ post.author)= post.author
             div.row
               div.col-md-12.post-text
                 p= post.preview
+                span.createTime= moment(post.createTime).format('DD MMMM YYYY')
+                span.com-count="Комментариев: "+ post.comments.length
     div.col-md-3
       span Для входа как boby
       p (nickname: boby/password: boby)

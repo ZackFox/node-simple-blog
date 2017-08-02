@@ -5,14 +5,8 @@ const mainController = {};
 
 mainController.welcome = (req, res, next) => {
   Post.find({}).then((posts) => {
-    // posts.map((p) => {
-    //     let date = new Date(p.createTime)
-    //     console.log(date.toDateString())
-    //     p.createTime = date; 
-
-    //     console.log(p.createTime)   
-    // });
-    res.render("index", { token: req.csrfToken(), posts: posts });
+    res.locals.dateFormat = new Intl.DateTimeFormat("ru", { year: "2-digit", month: "numeric", day: "numeric" });
+    res.render("index", { token: req.csrfToken(), posts });
   }).catch(err => next(err));
 };
 module.exports = mainController;

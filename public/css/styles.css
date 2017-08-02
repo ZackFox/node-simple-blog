@@ -104,7 +104,15 @@ label.error{
 }
 
 .createTime{
-    margin-left: 10px;
+    float:left;
+}
+
+.com-count{
+    float:right;
+}
+
+.post-title{
+    margin-bottom: 30px;
 }
 
 .post-text{
@@ -113,6 +121,11 @@ label.error{
 
 .post-block{
     min-height:350px;
+}
+
+.post-del{
+    font-size: 15px;
+    float: right;
 }
 
 .com-block{
@@ -140,6 +153,11 @@ label.error{
 
 .com-delete{
     float: right;
+}
+
+.com-date{
+    margin-left: 5px;
+    font-size: 12px;
 }
 
 .text-area{
