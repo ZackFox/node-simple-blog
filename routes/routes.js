@@ -11,9 +11,8 @@ const postController = require("../controllers/postController");
 const commentController = require("../controllers/commentController");
 
 function isLoggedIn(req, res, next) {
-  if (req.session.user &&
-      req.session.user.nickname === req.params.nickname) next();
-  res.redirect("/");
+  if (req.session.user && req.session.user.nickname === req.params.nickname) { return next(); }
+  return res.redirect("/");
 }
 
 router.get("/", mainController.welcome);

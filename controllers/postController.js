@@ -16,8 +16,8 @@ postController.sendPost = (req, res, next) => {
   newPost.text = req.body.text;
   newPost.preview = req.body.text.substring(0, 400).concat("...");
   newPost.save().then(() => User.findOneAndUpdate({ nickname: req.body.author },
-    { $push: { posts: newPost._id } })
-    .then(() => res.redirect("/")))
+    { $push: { posts: newPost._id } }))
+    .then(() => res.json({ id: newPost._id }))
     .catch((err) => { next(err); });
 };
 

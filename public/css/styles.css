@@ -111,6 +111,20 @@ label.error{
     float:right;
 }
 
+
+.ql-editor{
+    min-height: 200px;
+}
+
+.ql-toolbar span.ql-size.ql-picker {
+    width: 80px;    
+}
+.post-editor{
+    padding: 20px;
+    border: 1px solid #c5c5c5;
+    background: #f6f5f7;
+}
+
 .post-title{
     margin-bottom: 30px;
 }

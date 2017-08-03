@@ -14,7 +14,7 @@ profileController.getProfilePage = (req, res, next) => {
       return res.render("profile", { user, token: req.csrfToken() });
     }).catch(err => next(err));
 };
-profileController.getPostPage = (req, res) => {
+profileController.getPostPage = (req, res, next) => {
   res.render("createpost", { token: req.csrfToken() });
 };
 module.exports = profileController;
