@@ -15,7 +15,7 @@ div.container.content-wrapper
                   a.pull-right.badge.btn-success(href="/profile/"+ post.author)= post.author
             div.row
               div.col-md-12.post-text
-                p= post.preview
+                p!= post.preview
                 span.createTime= moment(post.createTime).format('DD MMMM YYYY')
                 span.com-count="Комментариев: "+ post.comments.length
     div.col-md-3

@@ -13,8 +13,8 @@ div.container.content-wrapper
       div.row
         h3.post-title= post.title
       div.row
-        #{post.text}
-        
+        p!= post.text
+
   div.row
     div.col-md-10.col-md-offset-1.com-blockp 
       p Комментариев: #{post.comments.length}            

@@ -1,19 +1,16 @@
-const toolbarOptions = [
-  ["bold", "italic", "underline"],
-  [{ align: [] }],
-  [{ size: ["small", false, "large", "huge"] }],
-  [{ color: [] }],
-  [{ list: "ordered" }, { list: "bullet" }],
-  ["blockquote"],
-  [{ header: [1, 2, 3, 4] }],
-];
 
 $(document).ready(() => {
   $(".write-post").css("display", "none");
 
-  const quill = new Quill("#editor", {
-    modules: { toolbar: toolbarOptions },
-    theme: "snow",
+  $('#summernote').summernote({
+    minHeight: 300,
+    toolbar: [
+      ['style', ['bold', 'italic', 'underline', 'clear']],
+      ['font', ['strikethrough', 'superscript', 'subscript']],
+      ['fontsize', ['fontsize']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+    ],
   });
 
   $(".post-submit").click(() => {
@@ -21,10 +18,11 @@ $(document).ready(() => {
     const author = $("#author").val();
     const title = $("#title").val();
 
-    const editor = document.querySelector('#editor');
-    const postText = editor.children[0].innerHTML;
-
+    const postText = $('.note-editable').html();
     const url = "/profile/"+ author +"/post";
+  
+    console.log(postText);
+
 
     if (title !== "" && postText !== "") {
       $.ajax({
@@ -35,8 +33,6 @@ $(document).ready(() => {
           window.location.replace("/profile/" + author + "/post/" + res.id);
         },
       });
-    } else {
-      
     }
   });
 });

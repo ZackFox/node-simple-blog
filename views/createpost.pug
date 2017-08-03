@@ -1,6 +1,6 @@
 //----header
 include top.pug
-link(href="/js/quil/quill.snow.css" rel="stylesheet")
+link(href="/js/dist/summernote.css" rel="stylesheet")
 include header.pug 
 
 div.container.content-wrapper     
@@ -18,11 +18,10 @@ div.container.content-wrapper
       //-   div.form-group
       
       label Текст:
-      div#editor
-        p Hello World!
+      div#summernote
       button.btn.btn-success.post-submit Отправить
   
 //----footers
 include footer.pug
-script(src="/js/quil/quill.min.js")
+script(src="/js/dist/summernote.min.js")
 script(src="/js/editor.js")
