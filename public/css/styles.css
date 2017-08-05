@@ -157,6 +157,11 @@ label.error{
     border: 1px solid #ccc;
 }
 
+.comment-item:hover .com-edit,
+.comment-item:hover .com-delete {
+    display: block;
+}
+
 .com-text-container{
 
 }
@@ -165,20 +170,14 @@ label.error{
     margin-bottom: 10px;
 }
 
-.com-edit, .com-save{
+.com-edit, .com-save, .com-delete, .com-cancel{
     float: right;
-}
-
-.com-save{
     display: none;
+    margin-left: 15px; 
 }
 
 .com-reply{
     float: left;
-}
-
-.com-delete{
-    float: right;
 }
 
 .com-date{
@@ -220,4 +219,8 @@ footer{
 
 .show{
     display: block;
+}
+
+.hidden{
+    display: none;
 }
