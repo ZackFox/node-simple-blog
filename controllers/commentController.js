@@ -10,6 +10,7 @@ commentController.sendComment = (req, res, next) => {
   newComment.author = author;
   newComment.postId = postId;
   newComment.text = req.body.comment;
+
   newComment.save()
     .then(() => Post.findByIdAndUpdate(postId, { $push: { comments: newComment._id } }))
     .then(() => res.redirect("/profile/" + req.params.nickname + "/post/" + postId))
@@ -17,19 +18,21 @@ commentController.sendComment = (req, res, next) => {
 };
 
 commentController.updateComment = (req, res, next) => {
-  const _id = req.body.id;
+  const id = req.params.replyId;
   const text = req.body.text;
-  Comment.findByIdAndUpdate({ _id }, { $set: { text, updateTime: Date.now() } }).exec();
+
+  Comment.findByIdAndUpdate({ _id: id }, { $set: { text, updateTime: Date.now() } }).exec();
 };
 
-commentController.deleteComment = (req, res) => {
-  // const author = req.body.author;
-  // const postId = req.params.id;
+commentController.deleteComment = (req, res, next) => {
+  const replyId = req.params.replyId;
+  const postId = req.params.id;
 
-  // newComment.save().then(comment => {
-  // })
-  // .catch(err => next(err));
-  res.send("delete");
+  Comment.findByIdAndRemove({ _id: replyId }).exec()
+    .then(() => {
+      Post.findByIdAndUpdate({ _id: postId }, { $pull: { comments: replyId } }).exec();
+      res.send("delete");
+    });
 };
 
 module.exports = commentController;

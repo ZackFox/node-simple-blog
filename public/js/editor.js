@@ -64,10 +64,7 @@ $(document).ready(() => {
       $.ajax({  
         url: url + "/reply/" + id,
         type: "put",
-        data: { _csrf, id, text: textarea.html() },
-        success: (res) => {
-          console.log(res);
-        },
+        data: { _csrf, text: textarea.html() },
       });
     }
   });
@@ -77,22 +74,17 @@ $(document).ready(() => {
     e.preventDefault();
     const commentItem = $(this).closest(".comment-item");
     const textarea = commentItem.find(".com-text-container");
-
-    const csrf = $(this).data("csrf");
+    const _csrf = $(this).data("csrf");
     const url = $(this).data("url");
-    const replyAuthor = $(this).data("reply-author");
-    const replyId = $(this).data("reply-id");
+    const id = $(this).data("reply-id");
 
-    // if (textarea.html() !== "") {
-    //   $.ajax({
-    //     url: url + "/reply/" + replyId,
-    //     type: "put",
-    //     data: { _csrf: csrf, author: replyAuthor, id: replyId, text: textarea.html() },
-    //     success: (res) => {
-    //       console.log(res);
-    //     },
-    //   });
-    // }
-    commentItem.remove();
+    $.ajax({
+      url: url + "/reply/" + id,
+      type: "delete",
+      data: { _csrf },
+      success: (res) => {
+        commentItem.remove();
+      },
+    });
   });
 });

@@ -45,7 +45,8 @@ div.container.content-wrapper
 
               a.com-reply(href="/") Ответить
               if session.user && com.author === session.user.nickname
-                a.com-delete(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Удалить
+                a.com-delete(href="/" data-csrf=token data-url=url data-reply-id=com._id) Удалить
+                a.com-cancel(href="/" ) Отмена
     
 //----footers
 include footer.pug

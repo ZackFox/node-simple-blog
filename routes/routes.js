@@ -29,7 +29,7 @@ router.post("/profile/:nickname/post", isLoggedIn, postController.sendPost);
 router.get("/profile/:nickname/post/:id", postController.getPostById);
 
 router.post("/profile/:nickname/post/:id/reply", commentController.sendComment);
-router.put("/profile/:nickname/post/:id/reply/:cId", commentController.updateComment);
-router.delete("/profile/:nickname/post/:id/reply/:cId", commentController.deleteComment);
+router.put("/profile/:nickname/post/:id/reply/:replyId", commentController.updateComment);
+router.delete("/profile/:nickname/post/:id/reply/:replyId", commentController.deleteComment);
 
 module.exports = router;
