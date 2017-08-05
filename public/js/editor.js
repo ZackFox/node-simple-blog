@@ -53,6 +53,7 @@ $(document).ready(() => {
       success: (res) => {
         // textarea.html("<p><br></p>");
         document.location.reload();
+        
       }
     });
   });
