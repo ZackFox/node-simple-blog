@@ -2,8 +2,6 @@ const express = require("express");
 
 const router = express.Router();
 
-const User = require("../model/userModel");
-
 const mainController = require("../controllers/mainController");
 const authController = require("../controllers/authController");
 const profileController = require("../controllers/profileController");
@@ -30,15 +28,8 @@ router.get("/profile/:nickname/posts", postController.getPostsByUser);
 router.post("/profile/:nickname/post", isLoggedIn, postController.sendPost);
 router.get("/profile/:nickname/post/:id", postController.getPostById);
 
-router.post("/profile/:nickname/post/:id/comment", commentController.sendComment);
-router.get("/profile/:nickname/post/:id/comment/:cId", commentController.deleteComment);
-// router.put("/profile/:nickname/post/:id/comment/:cId", commentController.updateComment);
-
-// router.get('/users', function(req,res,next){
-//     User.find({}).exec(function(err,users){
-//         if(err) next(err);
-//         res.json(users);
-//     });
-// });
+router.post("/profile/:nickname/post/:id/reply", commentController.sendComment);
+router.put("/profile/:nickname/post/:id/reply/:cId", commentController.updateComment);
+router.delete("/profile/:nickname/post/:id/reply/:cId", commentController.deleteComment);
 
 module.exports = router;

@@ -25,7 +25,7 @@ postController.getPostById = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate({ path: "comments", select: "author createTime text _id" })
     .then((post) => {
-      res.render("postPage", { token: req.csrfToken(), post: post });
+      res.render("postPage", { token: req.csrfToken(), post, url: req.url });
     }).catch(err => next(err));
 };
 

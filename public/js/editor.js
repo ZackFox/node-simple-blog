@@ -17,13 +17,9 @@ $(document).ready(() => {
     const csrf = $("#csrf").val();
     const author = $("#author").val();
     const title = $("#title").val();
-
     const postText = $('.note-editable').html();
     const url = "/profile/"+ author +"/post";
   
-    console.log(postText);
-
-
     if (title !== "" && postText !== "") {
       $.ajax({
         url,
@@ -34,5 +30,69 @@ $(document).ready(() => {
         },
       });
     }
+  });
+
+  $(".comment-item").on("click", ".com-edit", function (e) {
+    e.preventDefault();
+    const commentItem = $(this).closest(".comment-item");
+    commentItem.find(".com-delete").css("display", "none");
+    commentItem.find(".com-reply").css("display", "none");
+    commentItem.find(".com-save").css("display", "block");
+    $(this).css("display", "none");
+    
+    const textarea = commentItem.find(".com-text-container");
+    textarea.summernote({ focus: true, toolbar: false });
+  });
+
+  //------------save commentary button
+  $(".comment-item").on("click", ".com-save", function (e) {
+    e.preventDefault();
+    const commentItem = $(this).closest(".comment-item");
+    commentItem.find(".com-edit").css("display", "block");
+    commentItem.find(".com-reply").css("display", "block");
+    commentItem.find(".com-delete").css("display", "block");
+    $(this).css("display", "none");
+    
+    const textarea = commentItem.find(".com-text-container");
+    textarea.summernote("destroy");
+
+    const _csrf = $(this).data("csrf");
+    const url = $(this).data("url");
+    const id = $(this).data("reply-id");
+    
+    if (textarea.html() !== "") {
+      $.ajax({  
+        url: url + "/reply/" + id,
+        type: "put",
+        data: { _csrf, id, text: textarea.html() },
+        success: (res) => {
+          console.log(res);
+        },
+      });
+    }
+  });
+
+
+  $(".comment-item").on("click", ".com-delete", function (e) {
+    e.preventDefault();
+    const commentItem = $(this).closest(".comment-item");
+    const textarea = commentItem.find(".com-text-container");
+
+    const csrf = $(this).data("csrf");
+    const url = $(this).data("url");
+    const replyAuthor = $(this).data("reply-author");
+    const replyId = $(this).data("reply-id");
+
+    // if (textarea.html() !== "") {
+    //   $.ajax({
+    //     url: url + "/reply/" + replyId,
+    //     type: "put",
+    //     data: { _csrf: csrf, author: replyAuthor, id: replyId, text: textarea.html() },
+    //     success: (res) => {
+    //       console.log(res);
+    //     },
+    //   });
+    // }
+    commentItem.remove();
   });
 });

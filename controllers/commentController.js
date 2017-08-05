@@ -16,20 +16,10 @@ commentController.sendComment = (req, res, next) => {
     .catch(err => next(err));
 };
 
-commentController.updateComment = (req, res) => {
-  // const author = req.body.author;
-  // const postId = req.params.id;
-
-  // let newComment = new Comment();
-  // newComment.author = author;
-  // newComment.postId = postId;
-  // newComment.text = req.body.comment;
-
-  // newComment.save().then(comment => {    
-  // res.redirect("/profile/"+req.params.nickname+"/post/"+postId) 
-  // })
-  // .catch(err => next(err));
-  res.send("update");
+commentController.updateComment = (req, res, next) => {
+  const _id = req.body.id;
+  const text = req.body.text;
+  Comment.findByIdAndUpdate({ _id }, { $set: { text, updateTime: Date.now() } }).exec();
 };
 
 commentController.deleteComment = (req, res) => {

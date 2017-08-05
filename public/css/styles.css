@@ -112,7 +112,7 @@ label.error{
 }
 
 
-.ql-editor{
+.ql-editor{     
     min-height: 200px;
 }
 
@@ -157,12 +157,24 @@ label.error{
     border: 1px solid #ccc;
 }
 
-.com-head{
-    margin-bottom: 10px;    
+.com-text-container{
+
 }
 
-.com-update{
+.com-head{
+    margin-bottom: 10px;
+}
+
+.com-edit, .com-save{
     float: right;
+}
+
+.com-save{
+    display: none;
+}
+
+.com-reply{
+    float: left;
 }
 
 .com-delete{

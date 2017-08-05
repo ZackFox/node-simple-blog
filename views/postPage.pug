@@ -1,5 +1,6 @@
 //----header
 include top.pug
+link(href="/js/dist/summernote.css" rel="stylesheet")
 include header.pug 
 //------content       
 div.container.content-wrapper     
@@ -12,12 +13,12 @@ div.container.content-wrapper
     div.col-md-8
       div.row
         h3.post-title= post.title
-      div.row
-        p!= post.text
+      div.row 
+        div.post-text !{post.text}
 
   div.row
     div.col-md-10.col-md-offset-1.com-blockp 
-      p Комментариев: #{post.comments.length}            
+      p Комментариев: #{post.comments.length}
       if session.user
         div.comment-item            
           p новый коментарий
@@ -36,17 +37,20 @@ div.container.content-wrapper
               a.com-author(href="/profile/"+com.author)= com.author
               span.com-date= moment(com.createTime).format('DD MMMM YYYY')
               if session.user && com.author === session.user.nickname
-                a.com-update(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Изменить
+                a.com-edit(href="/") Изменить
+                a.com-save(href="/" data-csrf=token data-url=url data-reply-id=com._id) Сохранить
 
-            div.com-body
-              p.com-text= com.text
-              a(href="/") Ответить
-              
+            div.com-body.clearfix
+              div.com-text-container !{com.text}
+
+              a.com-reply(href="/") Ответить
               if session.user && com.author === session.user.nickname
                 a.com-delete(href="/profile/"+post.author+"/post/"+post._id +"/comment/"+com._id) Удалить
     
 //----footers
 include footer.pug
+script(src="/js/dist/summernote.min.js")
+script(src="/js/editor.js")
 
 
 

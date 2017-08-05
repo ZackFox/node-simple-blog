@@ -39,8 +39,8 @@ div.container.content-wrapper
                 if isOwn 
                   a.post-del(href="/profile/"+ post.author +"/post/"+post._id) Удалить
           div.row
-            div.col-md-12.post-text
-              p= post.preview
+            div.col-md-12.post-text 
+              div !{post.preview}
               span.createTime= moment(post.createTime).format('DD MMMM YYYY')
               span.com-count="Комментариев: "+ post.comments.length
 //----footers
