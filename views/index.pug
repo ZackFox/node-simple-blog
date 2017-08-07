@@ -24,12 +24,32 @@ div.container.content-wrapper
       span Для входа как boby
       p (nickname: boby/password: boby)
       a(href="https://github.com/ZackFox/nodeTodoTasks") Репозиторий проекта на GitHub :
+  
   div.pages
-    -var n = 1
     ul.pagination
-      while n < postsQuantity /limit+1
+      //--button prev
+      li
+        if page > 0
+          a.btn(href="/?page="+page)= "назад"
+        else
+          a.btn.disabled(href="/")= "назад"
+
+
+      //-- li page count
+      -for(var i = 1 ; i < 3; i++)
         li
-          a(href="/?page="+n)=n++
+          if ((page+i)<pages+1)
+            a.btn(href="/?page="+(page+i) )=page+i
+
+            //- class=((page+i) === i)?"active":""
+
+
+      //---button next
+      li
+        if page < pages-1
+          a.btn(href="/?page="+(page+2))= "вперед"
+        else
+          a.btn.disabled(href="/")= "вперед"
 
 //----footers
 include footer.pug

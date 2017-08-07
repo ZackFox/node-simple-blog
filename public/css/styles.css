@@ -204,6 +204,10 @@ label.error{
     position: absolute;
     bottom: 0;
 }
+li>a.active {
+    box-shadow: none;
+    background: green;
+}
 
 footer{
     width: 100%;
