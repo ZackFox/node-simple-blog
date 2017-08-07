@@ -40,8 +40,9 @@ div.container.content-wrapper
 
             div.com-body.clearfix
               div.com-text-container !{com.text}
-
-              a.com-reply(href="/") Ответить
+              
+              if session.user
+                a.com-reply(href="/") Ответить
               if session.user && com.author === session.user.nickname
                 a.com-delete(href="/" data-csrf=token data-url=url data-reply-id=com._id) Удалить
     

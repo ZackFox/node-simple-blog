@@ -5,8 +5,8 @@ include header.pug
 div.container.content-wrapper
   div.row
     div.col-md-9
-      ul
-        each post in posts
+      ul.posts-list
+        each post,index in posts
           li.well
             div.row
               div.col-md-12
@@ -16,12 +16,21 @@ div.container.content-wrapper
             div.row
               div.col-md-12.post-text
                 div !{post.preview}
-                span.createTime= moment(post.createTime).format('DD MMMM YYYY')
+                span.createTime= moment(post.createTime).format('(HH:mm) D MMMM YYYY')
                 span.com-count="Комментариев: "+ post.comments.length
+      
+
     div.col-md-3
       span Для входа как boby
       p (nickname: boby/password: boby)
       a(href="https://github.com/ZackFox/nodeTodoTasks") Репозиторий проекта на GitHub :
+  div.pages
+    -var n = 1
+    ul.pagination
+      while n < postsQuantity /limit+1
+        li
+          a(href="/?page="+n)=n++
+
 //----footers
 include footer.pug
 

@@ -20,6 +20,7 @@ h1,h2,h3 {
 .content-wrapper{ 
     min-height: 100%;
     padding-top: 20px;
+    position: relative;
 }
 
 header{
@@ -119,11 +120,18 @@ label.error{
 .ql-toolbar span.ql-size.ql-picker {
     width: 80px;    
 }
+
+
+.posts-list{
+    padding-bottom: 65px;
+}
+
 .post-editor{
     padding: 20px;
     border: 1px solid #c5c5c5;
     background: #f6f5f7;
 }
+
 
 .post-title{
     margin-bottom: 30px;
@@ -190,6 +198,11 @@ label.error{
     resize: none;
     padding: 7px;
     min-height: 60px;
+}
+
+.pages{
+    position: absolute;
+    bottom: 0;
 }
 
 footer{
