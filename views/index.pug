@@ -49,10 +49,6 @@ div.container.content-wrapper
         else
           a.btn.disabled(href="/")= "назад"
       
-      if (page > num)
-        li
-          a.btn.disabled(href="/")= "..."
-
       -for(i; i <= offset ; i++)
         if (page === i)
           li  
