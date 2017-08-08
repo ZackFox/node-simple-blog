@@ -26,28 +26,45 @@ div.container.content-wrapper
       a(href="https://github.com/ZackFox/nodeTodoTasks") Репозиторий проекта на GitHub :
   
   div.pages
+    -var i = 1 
+    -var n = pages
+    -var nums = 10
+    -var offset = nums 
+
+    if (n < nums)
+      -nums = n
+
+    if (page >= (n - nums)+1)
+      -i = (n - nums)+1
+      -offset = n
+    else
+      -i= page
+      -offset = (page + offset)-1
+  
     ul.pagination
       //--button prev
       li
-        if page > 0
-          a.btn(href="/?page="+page)= "назад"
+        if page > 1
+          a.btn(href="/?page="+(page - 1))= "назад"
         else
           a.btn.disabled(href="/")= "назад"
-
-
-      //-- li page count
-      -for(var i = 1 ; i < 3; i++)
+      
+      if (page > num)
         li
-          if ((page+i)<pages+1)
-            a.btn(href="/?page="+(page+i) )=page+i
+          a.btn.disabled(href="/")= "..."
 
-            //- class=((page+i) === i)?"active":""
-
-
+      -for(i; i <= offset ; i++)
+        if (page === i)
+          li  
+            span.active=i
+        else
+          li
+            a.btn(href="/?page="+i)=i
+    
       //---button next
       li
-        if page < pages-1
-          a.btn(href="/?page="+(page+2))= "вперед"
+        if (page < n)
+          a.btn(href="/?page="+(page + 1))= "вперед"
         else
           a.btn.disabled(href="/")= "вперед"
 
@@ -59,7 +76,11 @@ include footer.pug
 
 
 
+//- class=((page+i) === i)?"active":""
 
-
-
+//- -var n = 3
+      //- -for(var i = 1 ; i <= n ; i++)
+      //-   -if (page > pages - n) page = pages-n
+      //-   li
+      //-     a.btn(href="/?page="+(page+i))=(page+i)
     

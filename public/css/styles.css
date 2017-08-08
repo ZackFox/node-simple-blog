@@ -204,9 +204,9 @@ label.error{
     position: absolute;
     bottom: 0;
 }
-li>a.active {
+li>span.active {
     box-shadow: none;
-    background: green;
+    background: #ccc;
 }
 
 footer{
