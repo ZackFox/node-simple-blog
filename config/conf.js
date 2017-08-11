@@ -12,4 +12,7 @@ config.months = [
   "Августа", "Сентября", "Октября", "Ноября", "Декабря",
 ];
 
+config.postsLimit = 4;
+config.paginationLimit = 10;
+
 module.exports = config;

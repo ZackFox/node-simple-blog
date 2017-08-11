@@ -11,10 +11,13 @@ div.container.content-wrapper
         span  #{post.author}
       
     div.col-md-8
-      div.row
+      div
         h3.post-title= post.title
-      div.row 
+      div
         div.post-text !{post.text}
+        
+        if session.user && post.author === session.user.nickname
+          a.post-delete(href="/" data-csrf=token data-url=url) Удалить
 
   div.row
     div.col-md-10.col-md-offset-1.com-blockp 
@@ -43,7 +46,7 @@ div.container.content-wrapper
               
               if session.user
                 a.com-reply(href="/") Ответить
-              if session.user && com.author === session.user.nickname
+              if session.user && com.author === session.user.nickname 
                 a.com-delete(href="/" data-csrf=token data-url=url data-reply-id=com._id) Удалить
     
 //----footers

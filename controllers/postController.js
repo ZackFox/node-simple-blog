@@ -1,5 +1,6 @@
 const User = require("../model/userModel");
 const Post = require("../model/postModel");
+const Comment = require("../model/commentModel");
 
 const postController = {};
 
@@ -9,7 +10,7 @@ postController.getAllPosts = (req, res, next) => {
     .catch(err => next(err));
 };
 
-postController.sendPost = (req, res, next) => {
+postController.create = (req, res, next) => {
   const newPost = new Post();
   newPost.author = req.body.author;
   newPost.title = req.body.title;
@@ -35,6 +36,15 @@ postController.getPostsByUser = (req, res, next) => {
   const nickname = req.params.nickname;
   Post.find({ author: nickname })
     .then(posts => res.json({ posts }))
+    .catch(err => next(err));
+};
+
+postController.delete = (req, res, next) => {
+  const id = req.params.id;
+  Promise.all([
+    Post.remove({ _id: id }),
+    Comment.remove({ postId: id }),
+  ]).then(() => res.send("delete"))
     .catch(err => next(err));
 };
 

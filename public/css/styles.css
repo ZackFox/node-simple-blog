@@ -139,6 +139,7 @@ label.error{
 
 .post-text{
     padding-top: 10px;
+    word-wrap: break-word;
 }
 
 .post-block{

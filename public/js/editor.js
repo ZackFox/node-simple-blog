@@ -111,22 +111,4 @@ $(document).ready(() => {
     textarea.summernote("destroy");
   });
 
-  //------------ button delete reply 
-  $(".comment-item").on("click", ".com-delete", function (e) {
-    e.preventDefault();
-    const commentItem = $(this).closest(".comment-item");
-    const textarea = commentItem.find(".com-text-container");
-    const _csrf = $(this).data("csrf");
-    const url = $(this).data("url");
-    const id = $(this).data("reply-id");
-
-    $.ajax({
-      url: url + "/reply/" + id,
-      type: "delete",
-      data: { _csrf },
-      success: (res) => {
-        commentItem.remove();
-      },
-    });
-  });
 });

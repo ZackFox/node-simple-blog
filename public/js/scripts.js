@@ -27,7 +27,6 @@ $(document).ready(() => {
     }
   });
 
-
   //-----------------------------------
   $(".signupform").validate({
     rules: {
@@ -77,7 +76,43 @@ $(document).ready(() => {
       password: {
         required: "Пароль не должен быть пустым",
         minlength: jQuery.validator.format("Ваш пароль пароль короче {0} символов")
-      }
-    }
+      },
+    },
+  });
+
+  //------------ button delete post 
+  $(".post-delete").on("click", function (e) {
+    e.preventDefault();
+    const _csrf = $(this).data("csrf");
+    const url = $(this).data("url");
+
+    $.ajax({
+      url: url,
+      type: "delete",
+      data: { _csrf },
+      success: (res) => {
+        document.location.replace("/");
+      },
+    });
+  });
+
+
+  //------------ button delete reply 
+  $(".comment-item").on("click", ".com-delete", function (e) {
+    e.preventDefault();
+    const commentItem = $(this).closest(".comment-item");
+    const textarea = commentItem.find(".com-text-container");
+    const _csrf = $(this).data("csrf");
+    const url = $(this).data("url");
+    const id = $(this).data("reply-id");
+
+    $.ajax({
+      url: url + "/reply/" + id,
+      type: "delete",
+      data: { _csrf },
+      success: (res) => {
+        commentItem.remove();
+      },
+    });
   });
 });

@@ -3,7 +3,7 @@ const Post = require("../model/postModel");
 
 const commentController = {};
 
-commentController.sendComment = (req, res, next) => {
+commentController.create = (req, res, next) => {
   const author = req.body.author;
   const postId = req.params.id;
 
@@ -18,22 +18,21 @@ commentController.sendComment = (req, res, next) => {
     }).catch(err => next(err));
 };
 
-commentController.updateComment = (req, res, next) => {
+commentController.update = (req, res, next) => {
   const id = req.params.replyId;
   const text = req.body.text;
 
   Comment.findByIdAndUpdate({ _id: id }, { $set: { text, updateTime: Date.now() } }).exec();
 };
 
-commentController.deleteComment = (req, res, next) => {
+commentController.delete = (req, res, next) => {
   const replyId = req.params.replyId;
   const postId = req.params.id;
 
-  Comment.findByIdAndRemove({ _id: replyId }).exec()
-    .then(() => {
-      Post.findByIdAndUpdate({ _id: postId }, { $pull: { comments: replyId } }).exec();
-      res.send("delete");
-    });
+  Comment.findByIdAndRemove({ _id: replyId }).exec().then(() => {
+    Post.findByIdAndUpdate({ _id: postId }, { $pull: { comments: replyId } }).exec()
+      .then(() => res.send("delete"));
+  }).catch(err => next(err));
 };
 
 module.exports = commentController;

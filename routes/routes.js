@@ -25,11 +25,12 @@ router.get("/profile/:nickname", profileController.getProfilePage);
 router.get("/profile/:nickname/post", isLoggedIn, profileController.getPostPage);
 
 router.get("/profile/:nickname/posts", postController.getPostsByUser);
-router.post("/profile/:nickname/post", isLoggedIn, postController.sendPost);
+router.post("/profile/:nickname/post", isLoggedIn, postController.create);
 router.get("/profile/:nickname/post/:id", postController.getPostById);
+router.delete("/profile/:nickname/post/:id", postController.delete);
 
-router.post("/profile/:nickname/post/:id/reply", commentController.sendComment);
-router.put("/profile/:nickname/post/:id/reply/:replyId", commentController.updateComment);
-router.delete("/profile/:nickname/post/:id/reply/:replyId", commentController.deleteComment);
+router.post("/profile/:nickname/post/:id/reply", commentController.create);
+router.put("/profile/:nickname/post/:id/reply/:replyId", commentController.update);
+router.delete("/profile/:nickname/post/:id/reply/:replyId", commentController.delete);
 
 module.exports = router;

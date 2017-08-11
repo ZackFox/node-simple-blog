@@ -1,0 +1,37 @@
+div.pages
+  -var i = 1 
+  -var nums = paginationLimit // set up in config.js
+  -var offset = nums 
+
+  if (pages < nums)
+    -nums = pages
+
+  if (page >= (pages - nums)+1)
+    -i = (pages - nums)+1
+    -offset = pages
+  else
+    -i= page
+    -offset = (page + offset)-1
+
+  ul.pagination
+    //--button prev
+    li
+      if page > 1
+        a.btn(href="/?page="+(page - 1))= "назад"
+      else
+        a.btn.disabled(href="/")= "назад"
+    
+    -for(i; i <= offset ; i++)
+      if (page === i)
+        li  
+          span.active=i
+      else
+        li
+          a.btn(href="/?page="+i)=i
+  
+    //---button next
+    li
+      if (page < pages)
+        a.btn(href="/?page="+(page + 1))= "вперед"
+      else
+        a.btn.disabled(href="/")= "вперед"

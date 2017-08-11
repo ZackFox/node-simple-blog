@@ -10,7 +10,7 @@ div.container.content-wrapper
           li.well
             div.row
               div.col-md-12
-                h2.heading
+                h3.heading
                   a(href="/profile/"+ post.author +"/post/"+post._id)= post.title
                   a.pull-right.badge.btn-success(href="/profile/"+ post.author)= post.author
             div.row
@@ -19,64 +19,14 @@ div.container.content-wrapper
                 span.createTime= moment(post.createTime).format('(HH:mm) D MMMM YYYY')
                 span.com-count="Комментариев: "+ post.comments.length
       
-
     div.col-md-3
       span Для входа как boby
       p (nickname: boby/password: boby)
       a(href="https://github.com/ZackFox/nodeTodoTasks") Репозиторий проекта на GitHub :
   
-  div.pages
-    -var i = 1 
-    -var n = pages
-    -var nums = 10
-    -var offset = nums 
-
-    if (n < nums)
-      -nums = n
-
-    if (page >= (n - nums)+1)
-      -i = (n - nums)+1
-      -offset = n
-    else
-      -i= page
-      -offset = (page + offset)-1
-  
-    ul.pagination
-      //--button prev
-      li
-        if page > 1
-          a.btn(href="/?page="+(page - 1))= "назад"
-        else
-          a.btn.disabled(href="/")= "назад"
-      
-      -for(i; i <= offset ; i++)
-        if (page === i)
-          li  
-            span.active=i
-        else
-          li
-            a.btn(href="/?page="+i)=i
-    
-      //---button next
-      li
-        if (page < n)
-          a.btn(href="/?page="+(page + 1))= "вперед"
-        else
-          a.btn.disabled(href="/")= "вперед"
+  if pages > 1
+    include pagination.pug
 
 //----footers
 include footer.pug
-
-
-
-
-
-
-//- class=((page+i) === i)?"active":""
-
-//- -var n = 3
-      //- -for(var i = 1 ; i <= n ; i++)
-      //-   -if (page > pages - n) page = pages-n
-      //-   li
-      //-     a.btn(href="/?page="+(page+i))=(page+i)
     
