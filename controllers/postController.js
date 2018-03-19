@@ -13,7 +13,7 @@ postController.getAllPosts = (req, res, next) => {
     .count()
     .then(count => {
       const limit = config.postsLimit;
-      const pages = Math.ceil(0 / limit);
+      const pages = Math.ceil(count / limit);
       if (pageNumber > pages) {
         page = pages;
       }
