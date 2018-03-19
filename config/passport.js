@@ -10,21 +10,33 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-passport.use("signin", new LocalStrategy({
-  usernameField: 'nickname',
-  passwordField: 'password',
-  passReqToCallback: true
-}, (req, nickname, password, done) => {
-  User.findOne({ 'nickname': nickname }, function(err, user) {
-    if (err) return done(err);
-    if (user) {
-      if (user.password !== password) {
-        return done(null, false, { success: false, message: "Пароль не совпадает"});
-      }
-      return done(null, user, { success: true, message: "" });
-    }
-    return done(null, false, { success: false, message: "Такого пользователя не существует" });
-  });
-}));
+passport.use(
+  "signin",
+  new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    (req, email, password, done) => {
+      User.findOne({ email }, function(err, user) {
+        if (err) return done(err);
+        if (user) {
+          if (user.password !== password) {
+            return done(null, false, {
+              success: false,
+              message: "Пароль не совпадает",
+            });
+          }
+          return done(null, user, { success: true, message: "" });
+        }
+        return done(null, false, {
+          success: false,
+          message: "Такого пользователя не существует",
+        });
+      });
+    },
+  ),
+);
 
 module.exports = passport;

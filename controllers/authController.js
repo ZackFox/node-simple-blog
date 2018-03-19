@@ -1,4 +1,4 @@
-const passport = require('passport');
+const passport = require("passport");
 const User = require("../model/userModel");
 
 const authController = {};
@@ -8,24 +8,29 @@ authController.getSignUpPage = (req, res) => {
 };
 
 authController.signUp = (req, res, next) => {
+  const { username, nickname, password, email } = req.body;
   const newUser = new User();
-  newUser.email = req.body.email;
-  newUser.nickname = req.body.nickname;
-  newUser.password = req.body.password;
+  newUser.email = email;
+  newUser.username = username;
+  newUser.nickname = nickname;
+  newUser.password = password;
 
-  newUser.save()
+  newUser
+    .save()
     .then(() => res.redirect("/"))
     .catch(err => next(err));
 };
 
 authController.signIn = (req, res, next) => {
-  if (req.body.nickname === "" && req.body.password === "") {
+  const { email, password } = req.body;
+  if (email === "" && password === "") {
     return res.json({ message: "empty fields" });
   }
+
   return passport.authenticate("signin", (err, user, info) => {
     if (err) return next(err);
     if (!user) return res.json(info);
-    return req.logIn(user, (error) => {
+    return req.logIn(user, error => {
       if (error) return next(error);
       req.session.user = user;
       return res.json(info);

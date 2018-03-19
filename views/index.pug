@@ -4,20 +4,21 @@ include header.pug
 //------content
 div.container.content-wrapper
   div.row
-    div.col-md-9
-      ul.posts-list
-        each post,index in posts
-          li.well
-            div.row
-              div.col-md-12
-                h3.heading
-                  a(href="/profile/"+ post.author +"/post/"+post._id)= post.title
-                  a.pull-right.badge.btn-success(href="/profile/"+ post.author)= post.author
-            div.row
-              div.col-md-12.post-text
-                div !{post.preview}
-                span.createTime= moment(post.createTime).format('(HH:mm) D MMMM YYYY')
-                span.com-count="Комментариев: "+ post.comments.length
+    if posts.length > 0
+      div.col-md-9
+        ul.posts-list
+          each post in posts
+            li.well
+              div.row
+                div.col-md-12
+                  h3.heading
+                    a(href="/profile/"+ post.author +"/post/"+post._id)= post.title
+                    a.pull-right.badge.btn-success(href="/profile/"+ post.author)= post.author
+              div.row
+                div.col-md-12.post-text
+                  div !{post.preview}
+                  span.createTime= moment(post.createTime).format('(HH:mm) D MMMM YYYY')
+                  span.com-count="Комментариев: "+ post.comments.length
       
     div.col-md-3
       span Для входа как boby

@@ -7,10 +7,13 @@ div.container.content-wrapper
         input(type="hidden" id="csrf" name="_csrf" value=token)
         div.row
           h3 Регистрация
-        
         div.form-group.row
-          label#info-nickname.help-block Введите уникальное имя вашего профиля
-          input.form-control.form-control-lg(type="text" id="nickname" name="nickname" placeholder="Имя на caйте*")
+          label#info-nickname.help-block Введите ваше имя
+          input.form-control.form-control-lg(type="text" id="username" name="username" placeholder="Имя на caйте*")
+
+        div.form-group.row
+          label#info-nickname.help-block Введите уникальное имя для профиля
+          input.form-control.form-control-lg(type="text" id="nickname" name="nickname" placeholder="Имя профиля*")
 
         div.form-group.row
           label#info-email.help-block Введите уникальный адрес электронной почты
