@@ -11,10 +11,11 @@ profileController.getProfilePage = (req, res, next) => {
       if (req.session.user && req.session.user.nickname === req.params.nickname) {
         res.locals.isOwn = true;
       }
-      return res.render("profile", { user, token: req.csrfToken() });
+      return res.render("pages/profile", { user, token: req.csrfToken(), isOwn : res.locals.isOwn });
     }).catch(err => next(err));
 };
+
 profileController.getPostPage = (req, res, next) => {
-  res.render("createpost", { token: req.csrfToken() });
+  res.render("pages/createpost", { token: req.csrfToken() });
 };
 module.exports = profileController;

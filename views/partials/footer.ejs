@@ -1,0 +1,29 @@
+<footer>
+  here footer
+</footer>
+<div class="modal-wrapper">
+  <div class="modal-login container">
+     <div class="col-md-12">
+         <a href="/" class="modal-close">Закрыть</a>  
+         <form class="form-horizontal loginform" action="/signin" method="post">        
+            <input type="hidden" id="csrf" name="_csrf"  value="<%= token %>" >
+            <p class="message"></p>
+            <div class="form-group">
+              <label> Введите имя пользователя:</label>
+              <input class="form-control" type="text" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <label>Введите ваш пароль</label>
+              <input class="form-control" type="password" id="password" name="password" placeholder="Пароль">        
+            </div>
+            <div class="form-group">
+                <input class="btn btn-succes" type="submit" value="Войти">
+            </div>
+            <div class="form-group">
+              <a href="/signup">Регистрация</a> 
+            </div>
+          </form>
+      </div>
+  </div>
+</div>
+

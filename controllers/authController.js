@@ -4,7 +4,7 @@ const User = require("../model/userModel");
 const authController = {};
 
 authController.getSignUpPage = (req, res) => {
-  res.render("regpage", { token: req.csrfToken() });
+  res.render("pages/regpage", { token: req.csrfToken() });
 };
 
 authController.signUp = (req, res, next) => {

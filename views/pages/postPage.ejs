@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <link href="/js/dist/summernote.css" rel="stylesheet">
+  </head>
+  <body>
+    <% include ../partials/header %>
+    
+    <div class="container content-wrapper">
+        <div class="row post-block">
+          <div class="col-md-2">
+            <a href="/profile/<%= post.author %>">
+              <img class="img-polaroid" src="/img/blank_avatar.jpg" width="100">
+              <span> <%= post.author %></span>
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div>
+              <h3 class="post-title"><%= post.title %></h3>
+            </div>
+            <div>
+              <div class="post-text"><%- post.text %></div>
+              <% if (session.user && post.author === session.user.nickname) { %>
+                <a class="post-delete" href="/" data-csrf="<%= token %>" data-url="<%= url %>">Удалить</a> 
+              <% } %>
+            </div>                      
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 com-block">        
+            <p>Комментариев: <%= post.comments.length %></p> 
+            <% if (session.user) { %>
+              <div class="comment-item">
+                <p>новый коментарий</p> 
+                <div class="empty-reply"></div>
+                <a class="reply-send" href="/" data-csrf="<%= token %>" data-url="<%= url %>" data-author="<%= session.user.nickname %>">
+                  Отправить
+                </a>             
+              </div>
+            <% } else { %>
+              <p> Авторизируйтесь, чтобы оставить комментарий </p> 
+            <% } %>
+            
+            <ul class="replies-container">
+              <% for(let com of post.comments) {%>
+                <li class="comment-item">
+                  <div class="com-head" >
+                    <a class="com-author" href="/profile/<%= com.author %>"><%= com.author %></a> 
+                    <span class="com-date"><%= moment(com.createTime).format('DD MMMM YYYY') %></span>
+                    <% if (session.user && com.author === session.user.nickname) { %>
+                      <a href="/" class="com-edit" >Изменить</a> 
+                      <a href="/" class="com-cancel" >Отмена</a> 
+                      <a href="/" class="com-save" data-csrf="<%= token %>" data-url="<%= url %>" data-reply-id="<%= com._id %>">
+                        Сохранить
+                      </a>
+                    <% } %>
+                    <div class="com-body clearfix">
+                      <div class="com-text-container"><%- com.text %></div> 
+                      
+                      <% if (session.user) { %>
+                        <a class="com-reply" href="/">Ответить</a> 
+                        <% if (session.user && com.author === session.user.nickname) { %>
+                          <a class="com-delete" href="/" data-csrf="<%= token %>" data-url="<%= url %>" data-reply-id="<%= com._id %>">
+                            Удалить
+                          </a> 
+                        <% } %>
+                      <% } %>
+                    </div>
+                  </div>
+                </li>
+              <% } %>    
+            </ul>
+          </div>                    
+        </div>
+      </div>
+    
+
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>
+    <script src="/js/dist/summernote.min.js"></script>
+    <script src="/js/editor.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+    

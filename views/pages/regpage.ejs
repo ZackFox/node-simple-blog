@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>      
+    <div class="container content-wrapper"> 
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 sign-up-block">
+          <form class="signupform form-horizontal" action="/signup", method="post">    
+            <input type="hidden" id="csrf" name="_csrf" value=token>
+            <h3>Регистрация</h3> 
+            <div class="form-group">
+              <label id="info-nickname" class="help-block"> Введите ваше имя </label>
+              <input class="form-control form-control-lg" type="text" id="username" name="username" placeholder="Имя на caйте*">
+            </div>
+      
+            <div class="form-group">            
+              <label class="help-block"> Введите уникальное имя для профиля </label>
+              <input class="form-control form-control-lg" type="text" id="nickname" name="nickname" placeholder="Имя профиля*">
+            </div>
+
+            <div class="form-group">
+              <label class="help-block"> Введите уникальный адрес электронной почты </label>
+              <input class="form-control form-control-lg" type="text" id="email" name="email" placeholder="Email*">
+            </div>
+        
+            <div class="form-group">
+              <label class="help-block"> Введите ваш пароль (не короче 6 символов)</label>
+              <input class="form-control form-control-lg" type="password" id="password" name="password" placeholder="Пароль*">
+            </div>
+        
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+          </form>
+        </div>
+      </div>    
+  </div>
+  <% include ../partials/footer %>
+  <% include ../partials/scripts %>
+  </body>
+</html>

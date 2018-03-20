@@ -6,8 +6,11 @@ const config = require("../config/conf");
 const postController = {};
 
 postController.getAllPosts = (req, res, next) => {
-  let pageNumber = req.query.page ? Number.parseInt(req.query.page, 10) : 1;
-  if (pageNumber < 1) pageNumber = 1;
+  const { page } = req.query;
+  let pageNumber = page ? parseInt(page, 10) : 1;
+  if (pageNumber < 1) {
+    pageNumber = 1;
+  }
 
   Post.find({})
     .count()
@@ -22,10 +25,10 @@ postController.getAllPosts = (req, res, next) => {
       // console.log("count pages " + pages);
       // console.log("skip " + limit * pageNumber);
 
-      Post.find({})
-        .skip(limit * (pageNumber - 1))
+      Post.find({})        
+        .sort({ createTime: -1 })
+        .skip(limit * pageNumber - limit)
         .limit(limit)
-        .sort({ createTime: "desc" })
         .then(posts => {
           res.render("index", {
             token: req.csrfToken(),
@@ -64,7 +67,7 @@ postController.getPostById = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate({ path: "comments", select: "author createTime text _id" })
     .then(post => {
-      res.render("postPage", { token: req.csrfToken(), post, url: req.url });
+      res.render("pages/postPage", { token: req.csrfToken(), post, url: req.url });
     })
     .catch(err => next(err));
 };

@@ -9,8 +9,8 @@ const PostSchema = new Schema({
   preview: String,
   text: String,
   comments: [{ type: ObjectId, ref: "Comment" }],
-  createTime: { type: Date, default: Date.now() },
-  updateTime: { type: Date, default: Date.now() }
+  createTime: { type: Date, default: Date.now },
+  updateTime: { type: Date, default: Date.now },
 });
 
 // PostSchema.pre('findOne', (next) => {

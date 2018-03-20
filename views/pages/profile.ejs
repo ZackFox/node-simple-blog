@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div class="container content-wrapper">
+      <div class="row">      
+        <div class="col-md-12">
+          <div class="well well-small clearfix">
+            <div class="col-md-2">
+              <img class="img-polaroid" src="/img/blank_avatar.jpg" width="100") />               
+              <% if (isOwn) { %>
+                <a href="/profile/<%= user.nickname %>/edit" >редактировать</a> 
+              <% } %>
+            </div>
+            <div class="col-md-4">
+              <h2><%= user.username %></h2> 
+              <ul class="unstyled">
+                <li>
+                  <p><%= user.email %></p> 
+                  <i class="fa fa-envelope"></i>
+                </li>
+              </ul>                
+            </div>
+            <div class="col-md-6">
+              <ul class="inline.stats">
+                <li>
+                  <p>Постов :</p> 
+                  <span><%= user.posts.length %></span>
+                </li>
+                <li>
+                  <p>Подписчиков :</p> 
+                  <span>0</span> 
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>             
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <% for(let post of user.posts) {%>
+            <div class="well">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="heading">
+                    <a href="/profile/"+ post.author +"/post/"+post._id>
+                      <%= post.title %>
+                    </a>
+                  </h2>
+                  
+                </div>                    
+              </div>
+              <div class="row">
+                <div class="col-md-12 post-text ">
+                  <div><%- post.preview %></div>
+                  <span class="createTime"><%= moment(post.createTime).format('DD MMMM YYYY') %> </span>
+                  <span class="com-count">Комментариев: <%= post.comments.length %></span>
+                </div>                    
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>    
+  </body>
+</html>

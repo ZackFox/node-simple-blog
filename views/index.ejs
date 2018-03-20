@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <section class="container content-wrapper">
+      <div class="row">
+        <% if (posts.length > 0) {%>
+          <div class="col-md-9">
+            <ul class="posts-list">
+              
+              <% for(let post of posts) { %>
+                <li class="well">
+                  <div class="row">
+                    
+                    <div class="col-md-12">
+                      <h3 class="heading">
+                        <a href="/profile/<%= post.author %>/post/<%= post._id %>" >
+                          <%= post.title %>
+                        </a> 
+                      </h3>
+                      
+                      <a href="/profile/<%= post.author %>" class="pull-right badge btn-success">
+                        <%= post.author %> 
+                      </a> 
+
+                      <div class="post-text">
+                        <div> <%- post.preview %></div>
+                          <span class="createTime">
+                            <%= moment(post.createTime).format('(HH:mm) D MMMM YYYY') %>
+                          </span> 
+                        <span class="com-count">
+                          Комментариев: <%= post.comments.length %>
+                        </span>
+                      </div>
+                        
+                  </div>            
+                </li>
+              <% } %>
+              </ul>  
+          </div>
+        <% } %>
+      
+        <div class="col-md-3">
+          <span>Для входа как boby</span>
+          <p>(nickname: boby / password: boby)</p>
+          <a href="https://github.com/ZackFox/nodeTodoTasks" > 
+            Репозиторий проекта на GitHub :
+          </a>
+        </div>
+
+        <% if (pages > 1) {%>
+          <span>тут страницы</span>
+          <% include ./partials/pagination.ejs %>
+        <% }%>
+      </div>
+    </section>
+
+    <% include ./partials/footer %>
+    <% include ./partials/scripts %>
+  </body>
+</html>

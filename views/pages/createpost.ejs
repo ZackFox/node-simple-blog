@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/head %>
+    <link href="/js/dist/summernote.css" rel="stylesheet">
+  </head>
+  <body>
+    <% include ../partials/header %>
+    <div class="container content-wrapper">     
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 post-editor">                  
+          <div class="form-group">
+            <input type="hidden" id="csrf" name="_csrf"  value="<%= token %>">
+            <input type="hidden" id="author" name="author" value ="<%= session.user.nickname %>" >        
+            <label> Заголовок:</label>
+            <input class="form-control" type="text" id="title" name="title" placeholder="Заголовок">
+          </div>        
+    
+          <label>Текст:</label>
+          <div id="summernote"></div>
+          <button class="btn btn-success post-submit">Отправить</button> 
+        </div>
+      </div>
+    </div>
+    <% include ../partials/footer %>
+    <% include ../partials/scripts %>
+    <script src="/js/dist/summernote.min.js"></script>
+    <script src="/js/editor.js"></script>
+  </body>
+</html>
