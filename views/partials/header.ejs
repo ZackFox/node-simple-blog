@@ -1,19 +1,20 @@
 <header>
   <div class="container">
     <div class="logo">
-      <a href="/">МойБложек</a>
+      <a href="/">Балабол</a>
     </div>
 
     <% if (session.user) { %>
       <a href="/profile/<%= session.user.nickname %>/post" class="write-post btn">Написать пост</a>
-      <% } %>
+    <% } %>
 
-        <div class="login">
-          <% if (session.user) { %>
-            <a href="/signout" class="btn btn-warning">Выйти</a>
-            <% } else { %>
-              <a href="/" class="btn btn-success login-popup">Войти</a>
-              <% } %>
-        </div>
+    <div class="auth">
+      <% if (session.user) { %>
+        <a href="/signout" class="btn btn-warning">Выйти</a>
+      <% } else { %>        
+          <a href="/signup">Регистрация</a> 
+          <a href="/" class="btn btn-success login-popup">Войти</a>
+      <% } %>
+    </div>
   </div>
 </header>

@@ -1,14 +1,15 @@
+const mongoose = require("mongoose");
 const Comment = require("../model/commentModel");
 const Post = require("../model/postModel");
 
 const commentController = {};
 
 commentController.create = (req, res, next) => {
-  const author = req.body.author;
+  const userId = req.body.userId;
   const postId = req.params.id;
 
   const newComment = new Comment();
-  newComment.author = author;
+  newComment.author = mongoose.Types.ObjectId(req.body.userId);
   newComment.postId = postId;
   newComment.text = req.body.text;
 

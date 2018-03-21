@@ -15,19 +15,21 @@ $(document).ready(() => {
   
   //------------ button submit new article 
   $(".post-submit").click(() => {
+    const user = $("#postAuthor")
     const csrf = $("#csrf").val();
-    const author = $("#author").val();
+    const userId = user.data("user-id");
+    const nickname = user.data("nickname");
     const title = $("#title").val();
-    const postText = $('.note-editable').html();
-    const url = "/profile/"+ author +"/post";
+    const text = $('.note-editable').html();
+    const url = "/profile/"+ nickname +"/post";
   
-    if (title !== "" && postText !== "") {
+    if (title !== "" && text !== "") {
       $.ajax({
         url,
         type: "post",
-        data: { _csrf: csrf, author, title, text: postText },
+        data: { _csrf: csrf, userId, title, text },
         success: (res) => {
-          window.location.replace("/profile/" + author + "/post/" + res.id);
+          window.location.replace("/profile/" + nickname + "/post/" + res.id);
         },
       });
     }
@@ -42,19 +44,17 @@ $(document).ready(() => {
     const commentItem = $(this).closest(".comment-item");
     const _csrf = $(this).data("csrf");
     const url = $(this).data("url");
-    const author = $(this).data("author");
+    const userId= $(this).data("author");
     const textarea = commentItem.find(".note-editable");
     const text = textarea.html();
 
     $.ajax({
       url: url + "/reply/",
       type: "post",
-      data: { _csrf, author, text },
+      data: { _csrf, userId, text },
       success: (res) => {
-        // textarea.html("<p><br></p>");
         document.location.reload();
-        
-      }
+      },
     });
   });
 

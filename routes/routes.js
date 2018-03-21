@@ -17,28 +17,39 @@ function isLoggedIn(req, res, next) {
 router.get("/", postController.getAllPosts);
 
 router.post("/signin", authController.signIn);
+
 router.get("/signup", authController.getSignUpPage);
+
 router.post("/signup", authController.signUp);
+
 router.get("/signout", authController.signOut);
+
 router.post("/validate", authController.checkCredentials);
 
 router.get("/profile/:nickname", profileController.getProfilePage);
+
 router.get(
   "/profile/:nickname/post",
   isLoggedIn,
   profileController.getPostPage,
 );
 
-router.get("/profile/:nickname/posts", postController.getPostsByUser);
+router.get("/profile/:nickname/posts", postController.getAllPostsByUser);
+
 router.post("/profile/:nickname/post", isLoggedIn, postController.create);
-router.get("/profile/:nickname/post/:id", postController.getPostById);
+
+router.get("/profile/:nickname/post/:id", postController.getOnePost);
+
 router.delete("/profile/:nickname/post/:id", postController.delete);
 
+
 router.post("/profile/:nickname/post/:id/reply", commentController.create);
+
 router.put(
   "/profile/:nickname/post/:id/reply/:replyId",
   commentController.update,
 );
+
 router.delete(
   "/profile/:nickname/post/:id/reply/:replyId",
   commentController.delete,

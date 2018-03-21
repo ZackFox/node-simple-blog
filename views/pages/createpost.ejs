@@ -3,7 +3,7 @@
 <html>
   <head>
     <% include ../partials/head %>
-    <link href="/js/dist/summernote.css" rel="stylesheet">
+    <link href="/js/summernote/summernote.css" rel="stylesheet">
   </head>
   <body>
     <% include ../partials/header %>
@@ -12,7 +12,7 @@
         <div class="col-md-10 col-md-offset-1 post-editor">                  
           <div class="form-group">
             <input type="hidden" id="csrf" name="_csrf"  value="<%= token %>">
-            <input type="hidden" id="author" name="author" value ="<%= session.user.nickname %>" >        
+            <input type="hidden" id="postAuthor" data-user-id="<%= session.user._id %>" data-nickname="<%= session.user.nickname %>">        
             <label> Заголовок:</label>
             <input class="form-control" type="text" id="title" name="title" placeholder="Заголовок">
           </div>        
@@ -25,7 +25,7 @@
     </div>
     <% include ../partials/footer %>
     <% include ../partials/scripts %>
-    <script src="/js/dist/summernote.min.js"></script>
+    <script src="/js/summernote/summernote.min.js"></script>
     <script src="/js/editor.js"></script>
   </body>
 </html>

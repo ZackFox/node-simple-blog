@@ -17,13 +17,13 @@
                     
                     <div class="col-md-12">
                       <h3 class="heading">
-                        <a href="/profile/<%= post.author %>/post/<%= post._id %>" >
+                        <a href="/profile/<%= post.author.nickname %>/post/<%= post._id %>" >
                           <%= post.title %>
                         </a> 
                       </h3>
                       
-                      <a href="/profile/<%= post.author %>" class="pull-right badge btn-success">
-                        <%= post.author %> 
+                      <a href="/profile/<%= post.author.nickname %>" class="pull-right badge btn-success">
+                        <%= post.author.username %> 
                       </a> 
 
                       <div class="post-text">
