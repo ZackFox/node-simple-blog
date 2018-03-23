@@ -16,7 +16,7 @@
               <span> <%= post.author.username %></span>
             </a>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-9">
             <div>
               <h3 class="post-title"><%= post.title %></h3>
             </div>
@@ -31,7 +31,7 @@
   
         <div class="row">
           <div class="col-md-10 col-md-offset-1 com-block">        
-            <p>Комментариев: <%= post.comments.length %></p> 
+            <p>Комментариев: <%= post.commentsCount %></p> 
             <% if (session.user) { %>
               <div class="comment-item">
                 <p>новый коментарий</p> 
@@ -46,7 +46,7 @@
             <% } %>
             
             <ul class="replies-container">
-              <% for(let com of post.comments) {%>
+              <% for(let com of comments) {%>
                 <li class="comment-item">
                   <div class="com-head" >
                     <a class="com-author" href="/profile/<%= com.author.nickname %>"><%= com.author.username %></a> 

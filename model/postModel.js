@@ -8,7 +8,7 @@ const PostSchema = new Schema({
   title: { type: String, required: true },
   preview: String,
   text: String,
-  comments: [{ type: ObjectId, ref: "Comment" }],
+  commentsCount: { type: Number, default: 0 },
   createTime: { type: Date, default: Date.now },
   updateTime: { type: Date, default: Date.now },
 });

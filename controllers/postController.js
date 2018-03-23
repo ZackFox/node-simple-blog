@@ -55,28 +55,24 @@ postController.create = (req, res, next) => {
   newPost
     .save()
     .then((post) => {
-      User.findOneAndUpdate({ _id: req.body.userId }, { $push: { posts: newPost._id } });
+      User.findOneAndUpdate({ _id: req.body.userId }, { $inc: { postsCount: 1 } }).exec();
     })
     .then(() => res.json({ id: newPost._id }))
-    .catch(err => {
-      next(err);
-    });
+    .catch(err => next(err));
 };
 
 postController.getOnePost = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .populate({ path: "author", select: "_id username nickname avatar" })
-    .populate({
-      path: "comments",
-      select: "author createTime text _id",
-      populate: {
-        path: "author",
-        select: "username nickname avatar",
-      },
-    })
     .then(post => {
-      console.log(post);
-      res.render("pages/postPage", { token: req.csrfToken(), post, url: req.url });
+      Comment.find({ postId: post._id })
+        .populate({
+          path: "author",
+          select: "username nickname avatar",
+        })
+        .then((comments) => {
+          res.render("pages/postPage", { token: req.csrfToken(), post, comments, url: req.url });
+        });
     })
     .catch(err => next(err));
 };
@@ -90,7 +86,13 @@ postController.getAllPostsByUser = (req, res, next) => {
 
 postController.delete = (req, res, next) => {
   const id = req.params.id;
-  Promise.all([Post.remove({ _id: id }), Comment.remove({ postId: id })])
+  const nickname = req.params.nickname;
+
+  User.findOneAndUpdate({ nickname }, { $inc: { postsCount: -1 } })
+    .then((user) => {
+      Promise.all([Post.remove({ _id: id }).exec(),
+        Comment.remove({ postId: id }).exec()]);
+    })
     .then(() => res.send("delete"))
     .catch(err => next(err));
 };

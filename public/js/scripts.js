@@ -13,7 +13,7 @@ $(document).ready(() => {
     const csrf = $("#csrf").val();
 
     if (email === "" || password === "") {
-      $(".message").text("Заполните поля");
+      $(".login-message").text("Заполните поля");
     } else {
       $.ajax({
         url: "/signin",
@@ -21,7 +21,7 @@ $(document).ready(() => {
         data: { _csrf: csrf, email, password },
         success: res => {
           if (res.success) window.location.reload();
-          $(".message").text(res.message);
+          $(".login-message").text(res.message);
         },
       });
     }

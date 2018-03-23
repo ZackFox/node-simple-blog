@@ -11,7 +11,9 @@ const UserSchema = new Schema({
   hash: String,
   password: String,
   role: { type: Number, default: 0 },
-  posts: [{ type: ObjectId, ref: "Post" }],
+  postsCount: { type: Number, default: 0 },
+  subsCount: { type: Number, default: 0 },
+  followingCount: { type: Number, default: 0 },
   avatar: { type: String, default: "avatar.jpg" },
 });
 

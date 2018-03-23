@@ -5,59 +5,58 @@
   </head>
   <body>
     <% include ./partials/header %>
-    <section class="container content-wrapper">
-      <div class="row">
+    <div class="container content-wrapper">
+      <section class="col-md-9">
         <% if (posts.length > 0) {%>
-          <div class="col-md-9">
-            <ul class="posts-list">
-              
-              <% for(let post of posts) { %>
-                <li class="well">
-                  <div class="row">
-                    
-                    <div class="col-md-12">
-                      <h3 class="heading">
-                        <a href="/profile/<%= post.author.nickname %>/post/<%= post._id %>" >
-                          <%= post.title %>
-                        </a> 
-                      </h3>
-                      
-                      <a href="/profile/<%= post.author.nickname %>" class="pull-right badge btn-success">
-                        <%= post.author.username %> 
-                      </a> 
-
-                      <div class="post-text">
-                        <div> <%- post.preview %></div>
-                          <span class="createTime">
-                            <%= moment(post.createTime).format('(HH:mm) D MMMM YYYY') %>
-                          </span> 
-                        <span class="com-count">
-                          Комментариев: <%= post.comments.length %>
-                        </span>
-                      </div>
-                        
-                  </div>            
-                </li>
-              <% } %>
-              </ul>  
-          </div>
+          <ul class="posts-list">              
+            <% for(let post of posts) { %>
+              <li class="post-item">
+                <div class="post-author">
+                    <a href="/profile/<%= post.author.nickname %>" class="">
+                      <img src="/img/<%- post.author.avatar %>">
+                      <p><%= post.author.username %> </p>
+                    </a> 
+                </div>                                                              
+                <div class="post-content">                  
+                  <div class="post-header">
+                    <a href="/profile/<%= post.author.nickname %>/post/<%= post._id %>" class="heading" >
+                      <h3><%= post.title %></h3>  
+                    </a> 
+                  </div>
+                  <div class="post-text">
+                    <%- post.preview %>
+                  </div>
+                  <div class="post-bottom clearfix">
+                      <span class="createTime">
+                        <%= moment(post.createTime).format('D MMMM YYYY (HH:mm)') %>
+                      </span> 
+                      <span class="com-count">
+                        <i class="fa fa-comments-o"></i>
+                        <%= post.commentsCount %>
+                      </span>
+                  </div>                                  
+                </div>                
+              </li>
+            <% } %>
+          </ul>  
         <% } %>
       
-        <div class="col-md-3">
-          <span>Для входа как boby</span>
-          <p>(nickname: boby / password: boby)</p>
-          <a href="https://github.com/ZackFox/nodeTodoTasks" > 
-            Репозиторий проекта на GitHub :
-          </a>
-        </div>
-
         <% if (pages > 1) {%>
           <span>тут страницы</span>
           <% include ./partials/pagination.ejs %>
         <% }%>
-      </div>
-    </section>
+      </section>
+      
+      <aside class="col-md-3">
+        <a href="https://github.com/ZackFox/node-simple-blog" class="git-repos" > 
+          <i class="fa fa-github"></i>Репозиторий проекта 
+        </a>
+        <!-- <p>(Email: )</p>
+        <p>(password:)</p> -->
+      </aside>
 
+    </div>
+    
     <% include ./partials/footer %>
     <% include ./partials/scripts %>
   </body>

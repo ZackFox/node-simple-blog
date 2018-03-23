@@ -1,6 +1,6 @@
 // const passport = require('passport');
-// const Post = require('../model/postModel');
 const User = require("../model/userModel");
+const Post = require('../model/postModel');
 
 const profileController = {};
 profileController.getProfilePage = (req, res, next) => {
@@ -11,7 +11,16 @@ profileController.getProfilePage = (req, res, next) => {
       if (req.session.user && req.session.user.nickname === req.params.nickname) {
         res.locals.isOwn = true;
       }
-      return res.render("pages/profile", { user, token: req.csrfToken(), isOwn : res.locals.isOwn });
+
+      Post.find({ author: user._id })
+        .populate({
+          path: "author",
+          select: "username nickname avatar",
+        })
+        .then((posts) => {
+          console.log(posts);
+          res.render("pages/profile", { user, posts, token: req.csrfToken(), isOwn : res.locals.isOwn });
+        });
     }).catch(err => next(err));
 };
 

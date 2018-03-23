@@ -6,67 +6,73 @@
   </head>
   <body>
     <% include ../partials/header %>
-    <div class="container content-wrapper">
-      <div class="row">      
-        <div class="col-md-12">
-          <div class="well well-small clearfix">
-            <div class="col-md-2">
-              <img class="img-polaroid" src="/img/blank_avatar.jpg" width="100") />               
-              <% if (isOwn) { %>
-                <a href="/profile/<%= user.nickname %>/edit" >редактировать</a> 
-              <% } %>
-            </div>
-            <div class="col-md-4">
-              <h2><%= user.username %></h2> 
-              <ul class="unstyled">
-                <li>
-                  <p><%= user.email %></p> 
-                  <i class="fa fa-envelope"></i>
-                </li>
-              </ul>                
-            </div>
-            <div class="col-md-6">
-              <ul class="inline.stats">
-                <li>
-                  <p>Постов :</p> 
-                  <span><%= user.posts.length %></span>
-                </li>
-                <li>
-                  <p>Подписчиков :</p> 
-                  <span>0</span> 
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>             
+    <div class="profile-header">
+      <div class="container">
+        <div class="col-md-2 profile-avatar">
+          <img class="" src="/img/<%= user.avatar %>" width="100") />               
+          <% if (isOwn) { %>
+            <a href="/profile/<%= user.nickname %>/edit" >редактировать</a> 
+          <% } %>
+        </div> 
+        <div class="col-md-10">
+          <h2><%= user.username %>(@<%= user.nickname %>)</h2>               
+          <ul class="profile-stats">
+            <li>
+              <p>Постов:</p> 
+              <span><%= user.postsCount %></span>
+            </li>
+            <li>
+              <p>Подписчики:</p> 
+              <span>0</span> 
+            </li>
+            <li>
+              <p>Читает:</p> 
+              <span>0</span> 
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+
+    <div class="container content-wrapper">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-          <% for(let post of user.posts) {%>
-            <div class="well">
-              <div class="row">
-                <div class="col-md-12">
-                  <h2 class="heading">
-                    <a href="/profile/"+ post.author +"/post/"+post._id>
-                      <%= post.title %>
-                    </a>
-                  </h2>
-                  <%= if (isOwn) {%>
+          <ul class="posts-list">
+            <% for(let post of posts) {%>
+              <li class="post-item">
+                  <div class="post-author">
+                      <a href="/profile/<%= post.author.nickname %>" class="">
+                        <img src="/img/<%- post.author.avatar %>">
+                        <p><%= post.author.username %> </p>
+                      </a> 
+                  </div>                                                              
+                  <div class="post-content">                  
+                    <div class="post-header">
+                      <a href="/profile/<%= post.author.nickname %>/post/<%= post._id %>" class="heading" >
+                        <h3><%= post.title %></h3>  
+                      </a> 
+                    </div>
+                    <div class="post-text">
+                      <%- post.preview %>
+                    </div>
+                    <div class="post-bottom clearfix">
+                        <span class="createTime">
+                          <%= moment(post.createTime).format('D MMMM YYYY (HH:mm)') %>
+                        </span> 
+                        <span class="com-count">
+                          <i class="fa fa-comments-o"></i>
+                          <%= post.commentsCount %>
+                        </span>
+                    </div>                                  
+                  </div>                                  
+                  <% if (isOwn) {%>
                     <a class="post-del" href="/profile/<%= post.author %>/post/<%= post._id %>">
                       Удалить
                     </a> 
-                  <% } %>
-                </div>                    
-              </div>
-              <div class="row">
-                <div class="col-md-12 post-text ">
-                  <div><%- post.preview %></div>
-                  <span class="createTime"><%= moment(post.createTime).format('DD MMMM YYYY') %> </span>
-                  <span class="com-count">Комментариев: <%= post.comments.length %></span>
-                </div>                    
-              </div>
-            </div>
-          <% } %>
+                  <% } %>                                 
+                </li>
+            <% } %>
+          </ul>
         </div>
       </div>
     </div>

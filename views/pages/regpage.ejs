@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3 sign-up-block">
           <form class="signupform form-horizontal" action="/signup", method="post">    
-            <input type="hidden" id="csrf" name="_csrf" value=token>
+            <input type="hidden" id="csrf" name="_csrf" value="<%= token %>">
             <h3>Регистрация</h3> 
             <div class="form-group">
               <label id="info-nickname" class="help-block"> Введите ваше имя </label>
@@ -16,7 +16,7 @@
             </div>
       
             <div class="form-group">            
-              <label class="help-block"> Введите уникальное имя для профиля </label>
+              <label class="help-block"> Введите уникальное имя профиля </label>
               <input class="form-control form-control-lg" type="text" id="nickname" name="nickname" placeholder="Имя профиля*">
             </div>
 
