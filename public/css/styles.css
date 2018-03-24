@@ -8,8 +8,9 @@ html{
 }
 
 body{
-    position: relative;
     height: 100%;
+    position: relative;
+    background: #f9f9f9;
 }
 
 h1,h2,h3 {
@@ -75,6 +76,7 @@ header{
 
 .profile-stats{
     display: flex;
+    justify-content: space-between;
 }
 
 ul {
@@ -133,12 +135,12 @@ label.error{
   margin-right: 10px;
 }
 
-.post-item{
+.post-item{    
     display: flex;
     padding: 10px;
-    border: 1px solid #d5d7d8;
     margin-bottom: 30px;
-    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #d5d7d8;
 }
 
 .post-item .heading {
@@ -158,18 +160,24 @@ label.error{
     margin-bottom: 5px;
 }
 
-.post-content{
+.post-content {
+    position: relative;
     margin-left: 15px;
 }
 
-.post-content .createTime{
+.post-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.post-footer .createTime{
     float:left;
 }
 
-.post-content .com-count{
+.post-footer .com-count{
     float:right;
 }
-
 
 .ql-editor{     
     min-height: 200px;
@@ -183,8 +191,6 @@ label.error{
     padding-bottom: 65px;
 }
 
-
-
 .post-editor{
     padding: 20px;
     border: 1px solid #c5c5c5;
@@ -192,7 +198,9 @@ label.error{
 }
 
 .post-title{
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
 }
 
 .post-text{
@@ -204,6 +212,20 @@ label.error{
     min-height:350px;
 }
 
+.post-block .post-author {
+    display: block;
+    width: 130px;
+}
+
+.post-block .post-author img {
+    width: 100%;
+}
+
+.post-block .post-header{
+    margin-top: 20px;
+}
+
+
 .post-del{
     font-size: 15px;
     float: right;
@@ -211,6 +233,7 @@ label.error{
 
 .com-block{
     padding-top: 10px;
+    margin-bottom: 40px;
     border-top :1px solid #c1c1c1;
 }
 
@@ -227,10 +250,6 @@ label.error{
 .comment-item:hover .com-edit,
 .comment-item:hover .com-delete {
     display: block;
-}
-
-.com-text-container{
-
 }
 
 .com-head{

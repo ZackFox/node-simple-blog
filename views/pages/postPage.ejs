@@ -11,13 +11,13 @@
     <div class="container content-wrapper">
         <div class="row post-block">
           <div class="col-md-2">
-            <a href="/profile/<%= post.author.nickname %>">
-              <img class="img-polaroid" src="/img/<%= post.author.avatar %>" width="100">
+            <a href="/profile/<%= post.author.nickname %>" class="post-author">
+              <img src="/img/<%= post.author.avatar %>" >
               <span> <%= post.author.username %></span>
             </a>
           </div>
           <div class="col-md-9">
-            <div>
+            <div class="post-header">
               <h3 class="post-title"><%= post.title %></h3>
             </div>
             <div>
@@ -30,7 +30,7 @@
         </div>
   
         <div class="row">
-          <div class="col-md-10 col-md-offset-1 com-block">        
+          <div class="col-md-offset-2 col-md-8 com-block">        
             <p>Комментариев: <%= post.commentsCount %></p> 
             <% if (session.user) { %>
               <div class="comment-item">

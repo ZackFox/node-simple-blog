@@ -10,33 +10,7 @@
         <% if (posts.length > 0) {%>
           <ul class="posts-list">              
             <% for(let post of posts) { %>
-              <li class="post-item">
-                <div class="post-author">
-                    <a href="/profile/<%= post.author.nickname %>" class="">
-                      <img src="/img/<%- post.author.avatar %>">
-                      <p><%= post.author.username %> </p>
-                    </a> 
-                </div>                                                              
-                <div class="post-content">                  
-                  <div class="post-header">
-                    <a href="/profile/<%= post.author.nickname %>/post/<%= post._id %>" class="heading" >
-                      <h3><%= post.title %></h3>  
-                    </a> 
-                  </div>
-                  <div class="post-text">
-                    <%- post.preview %>
-                  </div>
-                  <div class="post-bottom clearfix">
-                      <span class="createTime">
-                        <%= moment(post.createTime).format('D MMMM YYYY (HH:mm)') %>
-                      </span> 
-                      <span class="com-count">
-                        <i class="fa fa-comments-o"></i>
-                        <%= post.commentsCount %>
-                      </span>
-                  </div>                                  
-                </div>                
-              </li>
+              <% include ./partials/postItem %>
             <% } %>
           </ul>  
         <% } %>
@@ -51,8 +25,8 @@
         <a href="https://github.com/ZackFox/node-simple-blog" class="git-repos" > 
           <i class="fa fa-github"></i>Репозиторий проекта 
         </a>
-        <!-- <p>(Email: )</p>
-        <p>(password:)</p> -->
+        <p>Backend: Node.js(Express.js)</p>
+        <p>Database: mongoose.js(mLab.com)</p>
       </aside>
 
     </div>
