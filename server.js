@@ -16,7 +16,7 @@ const routes = require("./routes/routes");
 
 const app = express();
 
-// mongoose.set("debug",true);
+// mongoose.set("debug", true);
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUri, { useMongoClient: true, poolSize: 4 }, () =>
   console.log("connection success!"),

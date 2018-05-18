@@ -12,4 +12,15 @@ const CommentSchema = new Schema({
   isDeleted: { type: Boolean, default: false },
 });
 
+CommentSchema.statics.getLastcomments = function() {
+  return this.find({})
+    .sort({ createTime: -1 })
+    .skip(0)
+    .limit(5)
+    .populate({
+      path: "author",
+      select: "_id username nickname",
+    });
+};
+
 module.exports = mongoose.model("Comment", CommentSchema);

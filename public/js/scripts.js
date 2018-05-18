@@ -27,6 +27,20 @@ $(document).ready(() => {
     }
   });
 
+  $("#btn-like").on("click", function() {
+    const url = window.location.pathname;
+    const csrf = $(this).data("csrf");
+
+    $.ajax({
+      url: url + "/like",
+      type: "POST",
+      data: { _csrf: csrf },
+      success: res => {
+        console.log(res);
+      },
+    });
+  });
+
   //-----------------------------------
   $(".signupform").validate({
     rules: {

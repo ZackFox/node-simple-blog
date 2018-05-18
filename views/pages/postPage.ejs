@@ -14,7 +14,7 @@
             <a href="/profile/<%= post.author.nickname %>" class="post-author">
               <img src="/img/<%= post.author.avatar %>" >
               <span> <%= post.author.username %></span>
-            </a>
+            </a>            
           </div>
           <div class="col-md-9">
             <div class="post-header">
@@ -24,6 +24,16 @@
               <div class="post-text"><%- post.text %></div>
               <% if (session.user && post.author.nickname === session.user.nickname) { %>
                 <a class="post-delete" href="/" data-csrf="<%= token %>" data-url="<%= url %>">Удалить</a> 
+              <% } %>
+              
+              <% if (session.user) { %>
+                <a href="/" id="btn-like" class="button-like <%= isLiked ? "liked" : '' %>" 
+                  data-csrf="<%= token %>" data-liked="<%= isLiked %>" >
+                    <i class="fa <%= isLiked ? 'fa-heart' : 'fa-heart-o' %>"></i> 
+                    <%= post.likesCount %>
+                </a>
+              <% } else { %>
+                <span class="button-like" ><i class="fa fa-heart-o"></i><%= post.likesCount %></span>
               <% } %>
             </div>                      
           </div>

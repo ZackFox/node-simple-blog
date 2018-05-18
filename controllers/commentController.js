@@ -9,7 +9,7 @@ commentController.create = (req, res, next) => {
   const postId = req.params.id;
 
   const newComment = new Comment();
-  newComment.author = mongoose.Types.ObjectId(req.body.userId);
+  newComment.author = mongoose.Types.ObjectId(userId);
   newComment.postId = postId;
   newComment.text = req.body.text;
 
@@ -20,6 +20,7 @@ commentController.create = (req, res, next) => {
     .then(() => res.json({ status: "success", comment: newComment }))
     .catch(err => next(err));
 };
+
 
 commentController.update = (req, res, next) => {
   const id = req.params.replyId;

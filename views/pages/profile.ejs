@@ -1,21 +1,27 @@
-
 <!DOCTYPE html>
 <html>
   <head>
     <% include ../partials/head %>
   </head>
+
   <body>
     <% include ../partials/header %>
-    <div class="profile-header">
-      <div class="container">
-        <div class="col-md-2 profile-avatar">
-          <img class="" src="/img/<%= user.avatar %>" width="100") />               
-          <% if (isOwn) { %>
-            <a href="/profile/<%= user.nickname %>/edit" >редактировать</a> 
-          <% } %>
-        </div> 
-        <div class="col-md-10">
-          <h2><%= user.username %> @<%= user.nickname %></h2>               
+
+      <div class="container h-100">
+        <div class="col-md-3">
+          <div class="profile-card">
+            <div class="profile-avatar">              
+              <img src="/img/<%= user.avatar %>" />               
+            </div>            
+            <h4 class="profile-name"><%= user.username %> @<%= user.nickname %></h4>
+            <p>About Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+              Tenetur officia cumque quo magnam sed dolorem ducimus dignissimos cum adipisci nesciunt nobis voluptatem. </p>
+            
+            <% if(session.user && session.user.nickname !== user.nickname ) { %>
+              <a href="/profile/<%= user.nickname %>/follow" >Подписаться</a>
+            <% } %>
+          </div>
+
           <ul class="profile-stats">
             <li>
               <p>Постов:</p> 
@@ -30,21 +36,17 @@
               <span>0</span> 
             </li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </div> 
 
-    <div class="container content-wrapper">
-      <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">                  
           <ul class="posts-list">
             <% for(let post of posts) {%>
               <% include ../partials/postItem %>
             <% } %>
-          </ul>
+          </ul>          
         </div>
       </div>
-    </div>
+
     <% include ../partials/footer %>
     <% include ../partials/scripts %>    
   </body>

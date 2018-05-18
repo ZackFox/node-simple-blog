@@ -5,7 +5,7 @@
   </head>
   <body>
     <% include ./partials/header %>
-    <div class="container content-wrapper">
+    <div class="container h-100 content-wrapper">
       <section class="col-md-9">
         <% if (posts.length > 0) {%>
           <ul class="posts-list">              
@@ -22,11 +22,34 @@
       </section>
       
       <aside class="col-md-3">
-        <a href="https://github.com/ZackFox/node-simple-blog" class="git-repos" > 
-          <i class="fa fa-github"></i>Репозиторий проекта 
-        </a>
-        <p>Backend: Node.js(Express.js)</p>
-        <p>Database: mongoose.js(mLab.com)</p>
+        <!-- <div class="aside-block">          
+          <a href="https://github.com/ZackFox/node-simple-blog" class="git-repos" > 
+            <i class="fa fa-github"></i>Репозиторий проекта 
+          </a>
+          <p>Backend: Node.js(Express.js)</p>
+          <p>Database: mongoose.js(mLab.com)</p>
+        </div>
+
+        <div class="aside-block popular-posts">
+          <h4>Популярные посты</h4>          
+        </div>
+
+        <div class="aside-block current-posts">
+          <h4>Последние посты</h4>
+          <% if (lastPosts.length > 0) {%>
+            <ul class="">              
+              <% for(let p of lastPosts) { %>
+                <li><a href=""><%= p.title %></a></li> 
+              <% } %>
+            </ul>  
+          <% } %>
+        </div>
+        <div class="aside-block current-comments">
+          <h4>Новые комментарии</h4>        
+        </div>
+        <div class="aside-block categories">
+          <h4>Категории</h4>        
+        </div> -->
       </aside>
 
     </div>

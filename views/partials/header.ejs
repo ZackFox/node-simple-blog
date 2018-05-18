@@ -1,20 +1,33 @@
 <header>
   <div class="container">
     <div class="logo">
-      <a href="/">Балабол</a>
+      <a href="/">
+        <img src="/img/speak.svg" alt="logo">
+        Балабол
+      </a>
     </div>
 
-    <% if (session.user) { %>
-      <a href="/profile/<%= session.user.nickname %>/post" class="write-post btn">Написать пост</a>
-    <% } %>
-
-    <div class="auth">
+    <div class="auth">      
       <% if (session.user) { %>
-        <a href="/signout" class="btn btn-warning">Выйти</a>
-      <% } else { %>        
+        <div class="user-menu" >
+          <div class="header-avatar">              
+            <img class="" src="/img/<%= session.user.avatar %>" />               
+          </div>
+          <a href="/profile/<%= session.user.nickname %>/post" class="write-button">Написать пост</a> 
+          
+          <div class="menu-options">
+            <a href="/profile/<%= session.user.nickname %>" >Перейти в профиль</a>
+            <a href="/profile/<%= session.user.nickname %>" >Оповещения</a>
+            <a href="/signout" class="btn btn-warning">Выйти</a>
+          </div>
+        </div>
+      <% } else { %> 
+        <div class="sign">  
           <a href="/signup" class="btn btn-signup">Регистрация</a> 
           <a href="/" class="btn btn-success login-popup">Войти</a>
+        </div>       
       <% } %>
     </div>
+
   </div>
 </header>
