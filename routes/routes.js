@@ -8,7 +8,7 @@ const postController = require("../controllers/postController");
 const commentController = require("../controllers/commentController");
 
 function isLoggedIn(req, res, next) {
-  if (req.session.user && req.session.user.nickname === req.params.nickname) {
+  if (req.session.user) {
     return next();
   }
   return res.redirect("/");
@@ -16,6 +16,9 @@ function isLoggedIn(req, res, next) {
 
 router.get("/", postController.getAllPosts);
 
+/**
+ * autentication and auterization routes
+ */
 router.post("/signin", authController.signIn);
 router.get("/signup", authController.getSignUpPage);
 router.post("/signup", authController.signUp);
@@ -44,6 +47,11 @@ router.post(
   "/profile/:nickname/post/:id/like",
   isLoggedIn,
   postController.like,
+);
+router.post(
+  "/profile/:nickname/post/:id/dislike",
+  isLoggedIn,
+  postController.dislike,
 );
 
 /**

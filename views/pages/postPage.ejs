@@ -30,10 +30,12 @@
                 <a href="/" id="btn-like" class="button-like <%= isLiked ? "liked" : '' %>" 
                   data-csrf="<%= token %>" data-liked="<%= isLiked %>" >
                     <i class="fa <%= isLiked ? 'fa-heart' : 'fa-heart-o' %>"></i> 
-                    <%= post.likesCount %>
+                    <span class="likeCount"><%= post.likesCount %></span>
                 </a>
               <% } else { %>
-                <span class="button-like" ><i class="fa fa-heart-o"></i><%= post.likesCount %></span>
+                <span class="button-like" ><i class="fa fa-heart-o"></i>
+                  <span class="likeCount"><%= post.likesCount %></span>
+                </span>
               <% } %>
             </div>                      
           </div>

@@ -27,13 +27,37 @@ $(document).ready(() => {
     }
   });
 
-  $("#btn-like").on("click", function() {
-    const url = window.location.pathname;
-    const csrf = $(this).data("csrf");
+  /**
+   * like button handler
+   */
+  $("#btn-like").on("click", function(e) {
+    e.preventDefault();
+    const $that = $(this);
+    const isLiked = $that.data("liked");
+    const csrf = $that.data("csrf");
+
+    let url = window.location.pathname;
+    let likeCount = $that.find(".likeCount");
+    let num = +likeCount.text();
+
+    $that.data("liked", !isLiked);
+    $that
+      .find(".fa")
+      .toggleClass("fa-heart")
+      .toggleClass("fa-heart-o");
+
+    if (isLiked) {
+      likeCount.text(num - 1);
+      url = url + "/dislike";
+    } else {
+      likeCount.text(num + 1);
+      url = url + "/like";
+    }
 
     $.ajax({
-      url: url + "/like",
+      url,
       type: "POST",
+      dataType: "json",
       data: { _csrf: csrf },
       success: res => {
         console.log(res);
