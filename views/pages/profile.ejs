@@ -18,7 +18,11 @@
               Tenetur officia cumque quo magnam sed dolorem ducimus dignissimos cum adipisci nesciunt nobis voluptatem. </p>
             
             <% if(session.user && session.user.nickname !== user.nickname ) { %>
-              <a href="/profile/<%= user.nickname %>/follow" >Подписаться</a>
+              <% if(!isSubscribe) { %>
+                <a href="/" id="subscribe" data-subscribe="false" data-csrf="<%= token %>" class="button " >Подписаться</a>
+              <% } else {%>
+                <a href="/" id="subscribe" data-subscribe="true" data-csrf="<%= token %>" class="button subscribed" >Отписаться</a>                
+              <% } %>
             <% } %>
           </div>
 
@@ -29,7 +33,7 @@
             </li>
             <li>
               <p>Подписчики:</p> 
-              <span>0</span> 
+              <span><%= user.subsCount %></span> 
             </li>
             <li>
               <p>Читает:</p> 

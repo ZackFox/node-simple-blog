@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
-const User = require("../model/userModel");
-const Post = require("../model/postModel");
-const Like = require("../model/likeModel");
-const Comment = require("../model/commentModel");
+const User = require("../model/user");
+const Post = require("../model/post");
+const Like = require("../model/like");
+const Comment = require("../model/comment");
 const config = require("../config/conf");
 
 const postController = {};
 
 /**
  *
- * get all post  route handler
- * for index page
+ * route handler for index route /
+ * get all posts
  * GET method
  */
 postController.getAllPosts = (req, res, next) => {
@@ -38,8 +38,8 @@ postController.getAllPosts = (req, res, next) => {
 };
 
 /**
- *
- * create new post route handler
+ * route handler for /profile/:nickname/post
+ * post request to create new post
  * POST method
  */
 postController.create = (req, res, next) => {
@@ -65,9 +65,9 @@ postController.create = (req, res, next) => {
 
 /**
  *
- * get one post by id route handler
- * for post page
- * POST method
+ * route handler for /profile/:nickname/post/:id
+ * get one post by id
+ * GET method
  */
 postController.getOnePost = (req, res, next) => {
   const postId = req.params.id;
@@ -87,10 +87,10 @@ postController.getOnePost = (req, res, next) => {
     .then(data => {
       const isLiked = data[2] ? true : false;
       res.render("pages/postPage", {
+        token: req.csrfToken(),
         post: data[0],
         isLiked,
         comments: data[1],
-        token: req.csrfToken(),
         url: req.url,
       });
     })
@@ -99,8 +99,8 @@ postController.getOnePost = (req, res, next) => {
 
 /**
  *
- * get all posts by user route handler
- * for profile page
+ * route handler for
+ * get all posts by user nickname
  * GET method
  */
 postController.getAllPostsByUser = (req, res, next) => {
@@ -113,7 +113,8 @@ postController.getAllPostsByUser = (req, res, next) => {
 
 /**
  *
- * post delete route handler
+ * route handler for /profile/:nickname/post/:id
+ * delete post by id
  * DELETE method
  */
 postController.delete = (req, res, next) => {
@@ -131,7 +132,8 @@ postController.delete = (req, res, next) => {
 
 /**
  *
- * like route handler
+ * route handler for /profile/:nickname/post/:id/:like
+ * to like a post
  * POST method
  */
 postController.like = (req, res, next) => {
@@ -151,7 +153,6 @@ postController.like = (req, res, next) => {
     ).exec(),
   ])
     .then(() => {
-      console.log("like create");
       res.json({ msg: "like done" });
     })
     .catch(err => next(err));
@@ -159,8 +160,9 @@ postController.like = (req, res, next) => {
 
 /**
  *
- * dislike route handler
- * POST method
+ * route handler for /profile/:nickname/post/:id:/dislike
+ * to unlike a post
+ * DElETE method
  */
 postController.dislike = (req, res, next) => {
   const userId = req.session.user._id;
@@ -176,7 +178,6 @@ postController.dislike = (req, res, next) => {
     ).exec(),
   ])
     .then(() => {
-      console.log("like deleted");
       res.json({ msg: "like delete" });
     })
     .catch(err => next(err));

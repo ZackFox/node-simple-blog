@@ -34,12 +34,22 @@ router.get(
   isLoggedIn,
   profileController.getPostPage,
 );
-router.get("/profile/:nickname/posts", postController.getAllPostsByUser);
+router.post(
+  "/profile/:nickname/subscribe",
+  isLoggedIn,
+  profileController.subscribe,
+);
+router.delete(
+  "/profile/:nickname/subscribe",
+  isLoggedIn,
+  profileController.unsubscribe,
+);
+
+// router.get("/profile/:nickname/posts", postController.getAllPostsByUser);
 
 /**
  * posts routes
  */
-
 router.post("/profile/:nickname/post", isLoggedIn, postController.create);
 router.get("/profile/:nickname/post/:id", postController.getOnePost);
 router.delete("/profile/:nickname/post/:id", postController.delete);
@@ -48,8 +58,8 @@ router.post(
   isLoggedIn,
   postController.like,
 );
-router.post(
-  "/profile/:nickname/post/:id/dislike",
+router.delete(
+  "/profile/:nickname/post/:id/like",
   isLoggedIn,
   postController.dislike,
 );

@@ -39,6 +39,7 @@ $(document).ready(() => {
     let url = window.location.pathname;
     let likeCount = $that.find(".likeCount");
     let num = +likeCount.text();
+    let method = isLiked ? "DELETE" : "POST";
 
     $that.data("liked", !isLiked);
     $that
@@ -48,15 +49,44 @@ $(document).ready(() => {
 
     if (isLiked) {
       likeCount.text(num - 1);
-      url = url + "/dislike";
     } else {
       likeCount.text(num + 1);
-      url = url + "/like";
     }
 
     $.ajax({
-      url,
-      type: "POST",
+      type: method,
+      url: url + "/like",
+      dataType: "json",
+      data: { _csrf: csrf },
+      success: res => {
+        console.log(res);
+      },
+    });
+  });
+
+  /**
+   * subscri button handler
+   */
+  $("#subscribe").on("click", function(e) {
+    e.preventDefault();
+    const $that = $(this);
+    const csrf = $that.data("csrf");
+    const isSubscribe = $that.data("subscribe");
+
+    let url = window.location.pathname;
+    let method = isSubscribe ? "DELETE" : "POST";
+
+    if (isSubscribe) {
+      $that.text("Подписаться");
+    } else {
+      $that.text("Отписаться");
+    }
+
+    $that.toggleClass("subscribed");
+    $that.data("subscribe", !isSubscribe);
+    $.ajax({
+      type: method,
+      url: url + "/subscribe",
       dataType: "json",
       data: { _csrf: csrf },
       success: res => {
