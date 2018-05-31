@@ -1,33 +1,60 @@
 <header>
   <div class="container">
-    <div class="logo">
-      <a href="/">
-        <img src="/img/speak.svg" alt="logo">
-        Балабол
-      </a>
-    </div>
-
-    <div class="auth">      
-      <% if (session.user) { %>
-        <div class="user-menu" >
+    <div class="row d-flex d-header">
+      <div class="col-md-3">
+        <a href="/" class="logo">
+          <img src="/img/speak.svg" alt="logo">
+          <span>Балабол</span> 
+        </a>
+      </div>
+      <div class="col-md-6">        
+        <form action="/">
+          <input type="text" name="search" id="searsh" placeholder="поиск пока не работает">
+          <input type="submit" value="поиск">
+        </form>
+      </div>
+      <div class="col-md-3">
+        <% if (session.user) { %>
           <div class="header-avatar">              
             <img class="" src="/img/<%= session.user.avatar %>" />               
           </div>
-          <a href="/profile/<%= session.user.nickname %>/post" class="write-button">Написать пост</a> 
+          <a href="/profile/<%= session.user.nickname %>/post" class="post-button">Написать пост</a> 
           
-          <div class="menu-options">
-            <a href="/profile/<%= session.user.nickname %>" >Перейти в профиль</a>
-            <a href="/profile/<%= session.user.nickname %>" >Оповещения</a>
-            <a href="/signout" class="btn btn-warning">Выйти</a>
+          <div class="header-menu">
+            <ul>
+              <li>
+                <a href="/profile/<%= session.user.nickname %>" >Перейти в профиль</a>
+              </li>
+              <li>
+                <a href="/profile/<%= session.user.nickname %>" >Оповещения</a>
+              </li>
+              <li>
+                <a href="/signout" class="btn btn-warning">Выйти</a>
+              </li>
+            </ul>
           </div>
-        </div>
-      <% } else { %> 
-        <div class="sign">  
-          <a href="/signup" class="btn btn-signup">Регистрация</a> 
-          <a href="/" class="btn btn-success login-popup">Войти</a>
-        </div>       
-      <% } %>
-    </div>
-
+        <% } else { %> 
+          <div class="sign-form">          
+            <form class="loginform" action="/signin" method="post">        
+              <p class="login-message"></p> 
+              <div class="form-group">
+                <input type="hidden" id="csrf" name="_csrf"  value="<%= token %>" >
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" id="email" name="email" placeholder=" Ваш Email">
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="password" id="password" name="password" placeholder="Ваш пароль">        
+              </div>
+              <div class="form-group">
+                <input class="btn btn-succes" type="submit" value="Войти">
+              </div>
+            </form>
+          </div>
+          <a href="/" class="btn btn-success login-popup">Войти</a>            
+          <a href="/signup" class="btn btn-signup">Регистрация</a>
+        <% } %>
+      </div>
+    </div>  
   </div>
 </header>

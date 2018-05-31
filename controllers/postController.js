@@ -43,13 +43,13 @@ postController.getAllPosts = (req, res, next) => {
  * POST method
  */
 postController.create = (req, res, next) => {
-  const { userId, title, text } = req.body;
+  const { userId, title, text, preview } = req.body;
 
   const newPost = new Post();
   newPost.author = mongoose.Types.ObjectId(userId);
   newPost.title = title;
   newPost.text = text;
-  newPost.preview = text.substring(0, 400).concat("...");
+  newPost.preview = preview;
 
   newPost
     .save()

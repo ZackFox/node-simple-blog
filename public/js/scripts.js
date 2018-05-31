@@ -2,7 +2,12 @@ $(document).ready(() => {
   // ---- login popup toggle
   $(".login-popup, .modal-close").click(e => {
     e.preventDefault();
-    $(".modal-wrapper").toggleClass("show");
+    $(".sign-form").toggleClass("show");
+  });
+
+  $(".header-avatar, .modal-close").click(e => {
+    e.preventDefault();
+    $(".header-menu").toggleClass("show");
   });
 
   // ----- login request

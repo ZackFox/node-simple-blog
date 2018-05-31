@@ -9,41 +9,46 @@
     <% include ../partials/header %>
     
     <div class="container h-100">
-        <div class="row post-block">
-          <div class="col-md-2">
-            <a href="/profile/<%= post.author.nickname %>" class="post-author">
-              <img src="/img/<%= post.author.avatar %>" >
-              <span> <%= post.author.username %></span>
-            </a>            
+        <div class="row d-flex post-block">
+          <div class="col-md-3">
+            <div class="profile-card">
+              <div class="profile-avatar">              
+                <img src="/img/<%= post.author.avatar %>" />               
+              </div>            
+              <a href="/profile/<%= post.author.nickname  %>"  class="profile-name"><%= post.author.username %> @<%= post.author.nickname %></a>              
+            </div>            
           </div>
           <div class="col-md-9">
-            <div class="post-header">
-              <h3 class="post-title"><%= post.title %></h3>
-            </div>
-            <div>
+            <div class="post-content">            
+              <div class="post-header">
+                <h3 class="post-title"><%= post.title %></h3>
+              </div>
+              
               <div class="post-text"><%- post.text %></div>
               <% if (session.user && post.author.nickname === session.user.nickname) { %>
                 <a class="post-delete" href="/" data-csrf="<%= token %>" data-url="<%= url %>">Удалить</a> 
               <% } %>
               
-              <% if (session.user) { %>
-                <a href="/" id="btn-like" class="button-like <%= isLiked ? "liked" : '' %>" 
-                  data-csrf="<%= token %>" data-liked="<%= isLiked %>" >
-                    <i class="fa <%= isLiked ? 'fa-heart' : 'fa-heart-o' %>"></i> 
+              <div class="post-bottom">
+                <span class="comments">Комментариев: <%= post.commentsCount %></span> 
+                <% if (session.user) { %>                    
+                  <a href="/" id="btn-like" class="button-like <%= isLiked ? "liked" : '' %>" 
+                    data-csrf="<%= token %>" data-liked="<%= isLiked %>" >
+                      <i class="fa <%= isLiked ? 'fa-heart' : 'fa-heart-o' %>"></i> 
+                      <span class="likeCount"><%= post.likesCount %></span>
+                  </a>
+                <% } else { %>
+                  <span class="button-like" ><i class="fa fa-heart-o"></i>
                     <span class="likeCount"><%= post.likesCount %></span>
-                </a>
-              <% } else { %>
-                <span class="button-like" ><i class="fa fa-heart-o"></i>
-                  <span class="likeCount"><%= post.likesCount %></span>
-                </span>
-              <% } %>
-            </div>                      
+                  </span>
+                <% } %>
+              </div>
+            </div>                  
           </div>
         </div>
   
         <div class="row">
-          <div class="col-md-offset-2 col-md-8 com-block">        
-            <p>Комментариев: <%= post.commentsCount %></p> 
+          <div class="col-md-offset-2 col-md-8 com-block">            
             <% if (session.user) { %>
               <div class="comment-item">
                 <p>новый коментарий</p> 
@@ -74,7 +79,7 @@
                       <div class="com-text-container"><%- com.text %></div> 
                       
                       <% if (session.user) { %>
-                        <a class="com-reply" href="/">Ответить</a> 
+                        <!-- <a class="com-reply" href="/">Ответить</a>  -->
                         <% if (session.user && com.author.nickname === session.user.nickname) { %>
                           <a class="com-delete" href="/" data-csrf="<%= token %>" data-url="<%= url %>" data-reply-id="<%= com._id %>">
                             Удалить

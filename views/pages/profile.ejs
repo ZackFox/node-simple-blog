@@ -8,46 +8,48 @@
     <% include ../partials/header %>
 
       <div class="container h-100">
-        <div class="col-md-3">
-          <div class="profile-card">
-            <div class="profile-avatar">              
-              <img src="/img/<%= user.avatar %>" />               
-            </div>            
-            <h4 class="profile-name"><%= user.username %> @<%= user.nickname %></h4>
-            <p>About Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-              Tenetur officia cumque quo magnam sed dolorem ducimus dignissimos cum adipisci nesciunt nobis voluptatem. </p>
-            
-            <% if(session.user && session.user.nickname !== user.nickname ) { %>
-              <% if(!isSubscribe) { %>
-                <a href="/" id="subscribe" data-subscribe="false" data-csrf="<%= token %>" class="button " >Подписаться</a>
-              <% } else {%>
-                <a href="/" id="subscribe" data-subscribe="true" data-csrf="<%= token %>" class="button subscribed" >Отписаться</a>                
+        <div class="row">
+          <div class="col-md-3">
+            <div class="profile-card">
+              <div class="profile-avatar">              
+                <img src="/img/<%= user.avatar %>" />               
+              </div>            
+              <h4 class="profile-name"><%= user.username %> @<%= user.nickname %></h4>
+              <p>About Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Tenetur officia cumque quo magnam sed dolorem ducimus dignissimos cum adipisci nesciunt nobis voluptatem. </p>
+              
+              <% if(session.user && session.user.nickname !== user.nickname ) { %>
+                <% if(!isSubscribe) { %>
+                  <a href="/" id="subscribe" data-subscribe="false" data-csrf="<%= token %>" class="button " >Подписаться</a>
+                <% } else {%>
+                  <a href="/" id="subscribe" data-subscribe="true" data-csrf="<%= token %>" class="button subscribed" >Отписаться</a>                
+                <% } %>
               <% } %>
-            <% } %>
+            </div>
+
+            <ul class="profile-stats">
+              <li>
+                <p>Постов:</p> 
+                <span><%= user.postsCount %></span>
+              </li>
+              <li>
+                <p>Подписчики:</p> 
+                <span><%= user.subsCount %></span> 
+              </li>
+              <li>
+                <p>Читает:</p> 
+                <span>0</span> 
+              </li>
+            </ul>
+          </div> 
+
+          <div class="col-md-9">                  
+            <ul class="posts-list">
+              <% for(let post of posts) {%>
+                <% include ../partials/postItem %>
+              <% } %>
+            </ul>          
           </div>
-
-          <ul class="profile-stats">
-            <li>
-              <p>Постов:</p> 
-              <span><%= user.postsCount %></span>
-            </li>
-            <li>
-              <p>Подписчики:</p> 
-              <span><%= user.subsCount %></span> 
-            </li>
-            <li>
-              <p>Читает:</p> 
-              <span>0</span> 
-            </li>
-          </ul>
-        </div> 
-
-        <div class="col-md-9">                  
-          <ul class="posts-list">
-            <% for(let post of posts) {%>
-              <% include ../partials/postItem %>
-            <% } %>
-          </ul>          
         </div>
       </div>
 
